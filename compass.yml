@@ -1,0 +1,16 @@
+name: bitebase-intelligence
+id: ari:cloud:compass:af971579-9853-4d1d-a13d-a7a4f19f0f21:component/a1f6db64-4f64-4c66-9241-99b0d67cac95/ab68d1e0-46bd-4abb-bd04-6c698b3c4c24
+description: null
+configVersion: 1
+typeId: SERVICE
+fields:
+  tier: 4
+links:
+  - name: null
+    type: REPOSITORY
+    url: https://github.com/BiteBase-app/bitebase-intelligence
+relationships:
+  DEPENDS_ON: []
+labels:
+  - source:github
+customFields: null
