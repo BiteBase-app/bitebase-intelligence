@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import Research from "./pages/Research";
 import Location from "./pages/Location";
 import Insights from "./pages/Insights";
+import Merge from "./pages/Merge";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/research" element={<Research />} />
             <Route path="/location" element={<Location />} />
             <Route path="/insights" element={<Insights />} />
+            <Route path="/merge" element={<Merge />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

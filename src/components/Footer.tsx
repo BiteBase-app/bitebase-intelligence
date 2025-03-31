@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 
 export function Footer() {
@@ -6,7 +5,7 @@ export function Footer() {
   // We'll use <a> for external links, and router-backed pages don't exist yet
   const NavLink = ({ to, children, className = "" }) => {
     // Check if the route exists in our App.tsx routes
-    const existingRoutes = ["/", "/dashboard", "/research", "/location", "/insights"];
+    const existingRoutes = ["/", "/dashboard", "/research", "/location", "/insights", "/merge"];
     
     if (existingRoutes.includes(to)) {
       return <Link to={to} className={className}>{children}</Link>;
@@ -46,7 +45,7 @@ export function Footer() {
               <li><NavLink to="/documentation" className="text-muted-foreground hover:text-bite-600 text-sm">Documentation</NavLink></li>
               <li><NavLink to="/guides" className="text-muted-foreground hover:text-bite-600 text-sm">Guides</NavLink></li>
               <li><NavLink to="/api-status" className="text-muted-foreground hover:text-bite-600 text-sm">API Status</NavLink></li>
-              <li><NavLink to="/contact" className="text-muted-foreground hover:text-bite-600 text-sm">Contact Support</NavLink></li>
+              <li><NavLink to="/merge" className="text-muted-foreground hover:text-bite-600 text-sm">Merge Tool</NavLink></li>
             </ul>
           </div>
           <div>
