@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,8 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Separator } from "@/components/ui/separator";
 import { TierRestriction } from "@/components/TierRestriction";
-import * as mapboxgl from "mapbox-gl";
-import { Map as MapGL, GeolocateControl, NavigationControl, Marker, Popup } from "mapbox-gl";
+import mapboxgl from "mapbox-gl";
 import { Search, MapPin, Layers, Filter, Ruler, Building, Users, DollarSign, TrendingUp, ShoppingBag } from "lucide-react";
 import "mapbox-gl/dist/mapbox-gl.css";
 

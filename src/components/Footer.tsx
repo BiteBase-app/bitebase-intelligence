@@ -2,6 +2,20 @@
 import { Link } from "react-router-dom";
 
 export function Footer() {
+  // Helper function to determine if a link should use React Router Link or HTML <a>
+  // We'll use <a> for external links, and router-backed pages don't exist yet
+  const NavLink = ({ to, children, className = "" }) => {
+    // Check if the route exists in our App.tsx routes
+    const existingRoutes = ["/", "/dashboard", "/research", "/location", "/insights"];
+    
+    if (existingRoutes.includes(to)) {
+      return <Link to={to} className={className}>{children}</Link>;
+    }
+    
+    // For non-existent routes, use a regular <a> tag
+    return <a href="#" className={className}>{children}</a>;
+  };
+
   return (
     <footer className="bg-background border-t border-border mt-auto">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -20,37 +34,37 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-foreground tracking-wider uppercase">Product</h3>
             <ul className="mt-4 space-y-2">
-              <li><Link to="/features" className="text-muted-foreground hover:text-bite-600 text-sm">Features</Link></li>
-              <li><Link to="/pricing" className="text-muted-foreground hover:text-bite-600 text-sm">Pricing</Link></li>
-              <li><Link to="/case-studies" className="text-muted-foreground hover:text-bite-600 text-sm">Case Studies</Link></li>
-              <li><Link to="/testimonials" className="text-muted-foreground hover:text-bite-600 text-sm">Testimonials</Link></li>
+              <li><NavLink to="/features" className="text-muted-foreground hover:text-bite-600 text-sm">Features</NavLink></li>
+              <li><NavLink to="/pricing" className="text-muted-foreground hover:text-bite-600 text-sm">Pricing</NavLink></li>
+              <li><NavLink to="/case-studies" className="text-muted-foreground hover:text-bite-600 text-sm">Case Studies</NavLink></li>
+              <li><NavLink to="/testimonials" className="text-muted-foreground hover:text-bite-600 text-sm">Testimonials</NavLink></li>
             </ul>
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground tracking-wider uppercase">Support</h3>
             <ul className="mt-4 space-y-2">
-              <li><Link to="/documentation" className="text-muted-foreground hover:text-bite-600 text-sm">Documentation</Link></li>
-              <li><Link to="/guides" className="text-muted-foreground hover:text-bite-600 text-sm">Guides</Link></li>
-              <li><Link to="/api-status" className="text-muted-foreground hover:text-bite-600 text-sm">API Status</Link></li>
-              <li><Link to="/contact" className="text-muted-foreground hover:text-bite-600 text-sm">Contact Support</Link></li>
+              <li><NavLink to="/documentation" className="text-muted-foreground hover:text-bite-600 text-sm">Documentation</NavLink></li>
+              <li><NavLink to="/guides" className="text-muted-foreground hover:text-bite-600 text-sm">Guides</NavLink></li>
+              <li><NavLink to="/api-status" className="text-muted-foreground hover:text-bite-600 text-sm">API Status</NavLink></li>
+              <li><NavLink to="/contact" className="text-muted-foreground hover:text-bite-600 text-sm">Contact Support</NavLink></li>
             </ul>
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground tracking-wider uppercase">Company</h3>
             <ul className="mt-4 space-y-2">
-              <li><Link to="/about" className="text-muted-foreground hover:text-bite-600 text-sm">About</Link></li>
-              <li><Link to="/blog" className="text-muted-foreground hover:text-bite-600 text-sm">Blog</Link></li>
-              <li><Link to="/careers" className="text-muted-foreground hover:text-bite-600 text-sm">Careers</Link></li>
-              <li><Link to="/press" className="text-muted-foreground hover:text-bite-600 text-sm">Press</Link></li>
+              <li><NavLink to="/about" className="text-muted-foreground hover:text-bite-600 text-sm">About</NavLink></li>
+              <li><NavLink to="/blog" className="text-muted-foreground hover:text-bite-600 text-sm">Blog</NavLink></li>
+              <li><NavLink to="/careers" className="text-muted-foreground hover:text-bite-600 text-sm">Careers</NavLink></li>
+              <li><NavLink to="/press" className="text-muted-foreground hover:text-bite-600 text-sm">Press</NavLink></li>
             </ul>
           </div>
         </div>
         <div className="mt-12 border-t border-border pt-8 flex flex-col md:flex-row justify-between">
           <p className="text-base text-muted-foreground">&copy; {new Date().getFullYear()} BiteBaseAI. All rights reserved.</p>
           <div className="mt-4 md:mt-0 flex space-x-6">
-            <Link to="/privacy" className="text-muted-foreground hover:text-bite-600 text-sm">Privacy</Link>
-            <Link to="/terms" className="text-muted-foreground hover:text-bite-600 text-sm">Terms</Link>
-            <Link to="/cookies" className="text-muted-foreground hover:text-bite-600 text-sm">Cookies</Link>
+            <NavLink to="/privacy" className="text-muted-foreground hover:text-bite-600 text-sm">Privacy</NavLink>
+            <NavLink to="/terms" className="text-muted-foreground hover:text-bite-600 text-sm">Terms</NavLink>
+            <NavLink to="/cookies" className="text-muted-foreground hover:text-bite-600 text-sm">Cookies</NavLink>
           </div>
         </div>
       </div>
