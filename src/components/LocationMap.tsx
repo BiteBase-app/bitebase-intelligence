@@ -7,7 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Separator } from "@/components/ui/separator";
 import { TierRestriction } from "@/components/TierRestriction";
-import { Map, GeolocateControl, NavigationControl, Marker, Popup } from "react-map-gl";
+import * as mapboxgl from "mapbox-gl";
+import { Map as MapGL, GeolocateControl, NavigationControl, Marker, Popup } from "mapbox-gl";
 import { Search, MapPin, Layers, Filter, Ruler, Building, Users, DollarSign, TrendingUp, ShoppingBag } from "lucide-react";
 import "mapbox-gl/dist/mapbox-gl.css";
 
@@ -23,7 +24,8 @@ interface MapMetric {
 }
 
 const LocationMap = () => {
-  const mapRef = useRef(null);
+  const mapRef = useRef<mapboxgl.Map | null>(null);
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const [location, setLocation] = useState("");
   const [radius, setRadius] = useState([1]); // km
   const [cuisine, setCuisine] = useState("");
@@ -69,6 +71,32 @@ const LocationMap = () => {
       icon: <ShoppingBag className="h-5 w-5 text-muted-foreground" />
     },
   ]);
+
+  useEffect(() => {
+    if (!mapContainerRef.current || !MAPBOX_TOKEN || MAPBOX_TOKEN === "YOUR_MAPBOX_TOKEN") return;
+    
+    // Initialize the map
+    mapboxgl.accessToken = MAPBOX_TOKEN;
+    const map = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: 'mapbox://styles/mapbox/light-v11',
+      center: [viewState.longitude, viewState.latitude],
+      zoom: viewState.zoom
+    });
+    
+    // Add navigation controls
+    map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+    map.addControl(new mapboxgl.GeolocateControl({
+      positionOptions: { enableHighAccuracy: true },
+      trackUserLocation: true
+    }), 'top-right');
+    
+    mapRef.current = map;
+    
+    return () => {
+      map.remove();
+    };
+  }, []);
 
   const startAnalysis = () => {
     // Mock data - in a real app, this would call an API
@@ -167,19 +195,7 @@ const LocationMap = () => {
               </div>
             </div>
           ) : (
-            <Map
-              ref={mapRef}
-              reuseMaps
-              mapboxAccessToken={MAPBOX_TOKEN}
-              initialViewState={viewState}
-              mapStyle="mapbox://styles/mapbox/light-v11"
-              style={{ width: "100%", height: "100%" }}
-            >
-              <GeolocateControl position="top-right" />
-              <NavigationControl position="top-right" />
-              
-              {/* Map would have markers, circles for radius, etc here */}
-            </Map>
+            <div ref={mapContainerRef} style={{ width: "100%", height: "100%" }} />
           )}
           
           {/* Map Controls */}
