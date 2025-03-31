@@ -22,6 +22,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { TierRestriction } from "@/components/TierRestriction";
+import { TierLevel } from "@/contexts/TierContext";
 
 const FEATURE_CATEGORIES = [
   {
@@ -40,7 +41,7 @@ const FEATURE_CATEGORIES = [
           "Custom Reports - Tailored reporting solutions",
           "Data Visualization - Interactive charts and graphs"
         ],
-        requiredTier: "free"
+        requiredTier: "free" as TierLevel
       },
       {
         title: "Location Intelligence",
@@ -52,7 +53,7 @@ const FEATURE_CATEGORIES = [
           "Foot Traffic Analysis - Analyze pedestrian patterns",
           "Real Estate Metrics - Property values and location analytics"
         ],
-        requiredTier: "free"
+        requiredTier: "free" as TierLevel
       },
       {
         title: "Menu Performance",
@@ -64,7 +65,7 @@ const FEATURE_CATEGORIES = [
           "Popularity Metrics - Track most and least popular items",
           "Menu Engineering - Categorize items by profitability and popularity"
         ],
-        requiredTier: "growth"
+        requiredTier: "growth" as TierLevel
       },
       {
         title: "Customer Analytics",
@@ -76,7 +77,7 @@ const FEATURE_CATEGORIES = [
           "Loyalty Analysis - Identify and analyze your most loyal customers",
           "Sentiment Analysis - Track customer sentiment over time"
         ],
-        requiredTier: "growth"
+        requiredTier: "growth" as TierLevel
       }
     ]
   },
@@ -95,7 +96,7 @@ const FEATURE_CATEGORIES = [
           "A/B Testing - Compare different marketing approaches",
           "Campaign Calendar - Schedule and visualize marketing activities"
         ],
-        requiredTier: "growth"
+        requiredTier: "growth" as TierLevel
       },
       {
         title: "Promotion Management",
@@ -107,7 +108,7 @@ const FEATURE_CATEGORIES = [
           "Promotion Scheduling - Time-based promotion planning",
           "Promotion ROI - Calculate return on investment for each promotion"
         ],
-        requiredTier: "pro"
+        requiredTier: "pro" as TierLevel
       },
       {
         title: "Marketing Channels",
@@ -119,7 +120,7 @@ const FEATURE_CATEGORIES = [
           "Digital Advertising - Track performance of digital ad campaigns",
           "Cross-Channel Analysis - Compare performance across channels"
         ],
-        requiredTier: "pro"
+        requiredTier: "pro" as TierLevel
       }
     ]
   },
@@ -138,7 +139,7 @@ const FEATURE_CATEGORIES = [
           "Location Settings - Manage address and geographic information",
           "Brand Assets - Store and manage logos and brand materials"
         ],
-        requiredTier: "free"
+        requiredTier: "free" as TierLevel
       },
       {
         title: "Team Management",
@@ -149,7 +150,7 @@ const FEATURE_CATEGORIES = [
           "Performance Tracking - Monitor staff sales and performance",
           "Scheduling Integration - Connect with staff scheduling systems"
         ],
-        requiredTier: "growth"
+        requiredTier: "growth" as TierLevel
       },
       {
         title: "Data Management",
@@ -161,7 +162,7 @@ const FEATURE_CATEGORIES = [
           "Historical Data - Access to past performance data",
           "Trend Comparison - Compare current performance with past periods"
         ],
-        requiredTier: "pro"
+        requiredTier: "pro" as TierLevel
       },
       {
         title: "Integrations",
@@ -173,7 +174,7 @@ const FEATURE_CATEGORIES = [
           "Delivery Platforms - Connect with food delivery services",
           "API Access - Custom integrations (Enterprise tier)"
         ],
-        requiredTier: "enterprise"
+        requiredTier: "enterprise" as TierLevel
       }
     ]
   }
