@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, Plus, Search, MapPin, Filter } from "lucide-react";
+import { FileText, Plus, Search, MapPin, Filter, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ResearchProjects = () => {
   const projects = [
@@ -42,9 +43,18 @@ const ResearchProjects = () => {
             <h1 className="text-4xl font-bold mb-2">Market Research</h1>
             <p className="text-muted-foreground">Create and manage your restaurant market research projects.</p>
           </div>
-          <Button className="mt-4 sm:mt-0">
-            <Plus className="mr-2 h-4 w-4" /> New Research Project
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-3 mt-4 sm:mt-0">
+            <Button className="sm:order-2" asChild>
+              <Link to="/onboarding">
+                <Plus className="mr-2 h-4 w-4" /> New Research Project
+              </Link>
+            </Button>
+            <Button variant="outline" className="sm:order-1" asChild>
+              <Link to="/onboarding">
+                Restaurant Setup <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
         
         <div className="flex flex-col md:flex-row gap-4 mb-8">
@@ -112,7 +122,9 @@ const ResearchProjects = () => {
                   <p className="text-center text-muted-foreground text-sm mb-4">
                     Start a new market research project for your restaurant concept.
                   </p>
-                  <Button variant="outline">Create Project</Button>
+                  <Button variant="outline" asChild>
+                    <Link to="/onboarding">Create Project</Link>
+                  </Button>
                 </CardContent>
               </Card>
             </div>
