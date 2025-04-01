@@ -9,14 +9,16 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CheckIcon, ChevronRightIcon, Store, Users, FileSpreadsheet, AreaChart, FlaskConical } from "lucide-react";
+import { CheckIcon, ChevronRightIcon, Store, Users, FileSpreadsheet, AreaChart, FlaskConical, MapPin } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import MapAnalysisStep from "@/components/MapAnalysisStep";
 
 const steps = [
   { id: "business-type", name: "Business Type" },
   { id: "basic-info", name: "Basic Info" },
   { id: "location", name: "Location" },
+  { id: "map-analysis", name: "Map Analysis" },
   { id: "research-goals", name: "Research Goals" },
   { id: "summary", name: "Summary" },
 ];
@@ -34,6 +36,7 @@ const RestaurantSetup = () => {
     city: "",
     state: "",
     zipCode: "",
+    locationRadius: 1,
     researchGoals: [] as string[],
     competitiveAnalysis: false,
     marketSizing: false,
@@ -78,7 +81,7 @@ const RestaurantSetup = () => {
       }
     }
 
-    if (currentStep === 3) {
+    if (currentStep === 4) {
       const hasSelectedGoal = formData.competitiveAnalysis || formData.marketSizing || 
                              formData.demographicAnalysis || formData.locationIntelligence;
       if (!hasSelectedGoal) {
@@ -322,8 +325,23 @@ const RestaurantSetup = () => {
             </>
           )}
 
-          {/* Step 4: Research Goals */}
+          {/* Step 4: Map Analysis (NEW) */}
           {currentStep === 3 && (
+            <>
+              <CardHeader>
+                <CardTitle>Location Analysis</CardTitle>
+                <CardDescription>
+                  Analyze your restaurant location to understand market potential
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <MapAnalysisStep formData={formData} updateFormData={updateFormData} />
+              </CardContent>
+            </>
+          )}
+
+          {/* Step 5: Research Goals */}
+          {currentStep === 4 && (
             <>
               <CardHeader>
                 <CardTitle>Research Goals</CardTitle>
@@ -401,8 +419,8 @@ const RestaurantSetup = () => {
             </>
           )}
 
-          {/* Step 5: Summary */}
-          {currentStep === 4 && (
+          {/* Step 6: Summary */}
+          {currentStep === 5 && (
             <>
               <CardHeader>
                 <CardTitle>Setup Summary</CardTitle>
@@ -427,6 +445,7 @@ const RestaurantSetup = () => {
                   <h3 className="font-medium">Location</h3>
                   <p>{formData.streetAddress}</p>
                   <p>{formData.city}, {formData.state} {formData.zipCode}</p>
+                  <p><span className="text-muted-foreground">Analysis Radius:</span> {formData.locationRadius} km</p>
                 </div>
                 
                 <div className="space-y-1">
