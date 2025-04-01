@@ -13,6 +13,7 @@ import Insights from "./pages/Insights";
 import Merge from "./pages/Merge";
 import NotFound from "./pages/NotFound";
 import Onboarding from "./pages/Onboarding";
+import RestaurantSetup from "./pages/RestaurantSetup";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/insights" element={<Insights />} />
             <Route path="/merge" element={<Merge />} />
             <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/restaurant-setup" element={<RestaurantSetup />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

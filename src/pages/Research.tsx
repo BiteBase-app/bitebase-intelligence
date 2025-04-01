@@ -1,4 +1,3 @@
-
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -50,7 +49,7 @@ const ResearchProjects = () => {
               </Link>
             </Button>
             <Button variant="outline" className="sm:order-1" asChild>
-              <Link to="/onboarding">
+              <Link to="/restaurant-setup">
                 Restaurant Setup <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -123,7 +122,7 @@ const ResearchProjects = () => {
                     Start a new market research project for your restaurant concept.
                   </p>
                   <Button variant="outline" asChild>
-                    <Link to="/onboarding">Create Project</Link>
+                    <Link to="/restaurant-setup">Create Project</Link>
                   </Button>
                 </CardContent>
               </Card>
