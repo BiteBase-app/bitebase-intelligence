@@ -33,6 +33,8 @@ const App = () => (
             <Route path="/merge" element={<Merge />} />
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/restaurant-setup" element={<RestaurantSetup />} />
+            <Route path="/menu-analysis" element={<Dashboard />} /> {/* Temporary pointing to Dashboard */}
+            <Route path="/restaurants/:id" element={<Dashboard />} /> {/* Temporary pointing to Dashboard */}
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
