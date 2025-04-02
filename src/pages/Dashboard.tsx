@@ -12,7 +12,7 @@ import {
   Calendar, 
   Globe, 
   Utensils,
-  Line,
+  LineChart,
   Search,
   Layers,
   Filter,
