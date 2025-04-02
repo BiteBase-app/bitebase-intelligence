@@ -18,7 +18,7 @@ export function GradientHeading({
   return (
     <Component
       className={cn(
-        "bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold",
+        "bg-gradient-to-r from-bitebase-green-600 to-bitebase-green-400 bg-clip-text text-transparent font-bold font-jetbrains",
         as === "h1" && "text-4xl md:text-5xl lg:text-6xl",
         as === "h2" && "text-3xl md:text-4xl lg:text-5xl",
         as === "h3" && "text-2xl md:text-3xl",

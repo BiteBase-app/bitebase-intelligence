@@ -5,13 +5,13 @@ import { Map, TrendingUp, Users, Building, DollarSign, BarChart } from "lucide-r
 
 export function Features() {
   return (
-    <section id="features" className="py-16 md:py-24 bg-accent/20">
+    <section id="features" className="py-16 md:py-24 bg-bitebase-green-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <GradientHeading as="h2" className="mb-4">
             Powerful Location Intelligence Features
           </GradientHeading>
-          <p className="subtitle mx-auto max-w-2xl">
+          <p className="text-lg text-gray-600 mx-auto max-w-2xl">
             Everything you need to make data-driven decisions for your restaurant expansion
           </p>
         </div>

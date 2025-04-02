@@ -19,7 +19,48 @@ const config = {
     },
     extend: {
       colors: {
-        // BiteBase primary colors
+        "bitebase-green": {
+          DEFAULT: "#74C365", // Primary green
+          50: "#F2FCE2",
+          100: "#E6F7D9",
+          200: "#CEEFB3",
+          300: "#B5E78D",
+          400: "#9DDF67",
+          500: "#74C365", // Base primary
+          600: "#5CA24F",
+          700: "#447A3B",
+          800: "#2D5126",
+          900: "#152912",
+          950: "#0A140A",
+        },
+        "bitebase-red": {
+          DEFAULT: "#E23D28", // Secondary red
+          50: "#FCE9E6",
+          100: "#F9D3CE",
+          200: "#F3A79D",
+          300: "#ED7C6C",
+          400: "#E7503B",
+          500: "#E23D28", // Base secondary
+          600: "#B53122",
+          700: "#882519",
+          800: "#5B1811",
+          900: "#2D0C08",
+          950: "#170604",
+        },
+        "bitebase-yellow": {
+          DEFAULT: "#F4C431", // Accent yellow
+          50: "#FEF9E8",
+          100: "#FEF4D1",
+          200: "#FCE9A3",
+          300: "#FADF75",
+          400: "#F9D447",
+          500: "#F4C431", // Base accent
+          600: "#C39D27",
+          700: "#92751D",
+          800: "#624E13",
+          900: "#31270A",
+          950: "#181305",
+        },
         primary: {
           DEFAULT: "#FF6B35", // Vibrant orange - primary brand color
           50: "#FFF2EC",
@@ -34,7 +75,6 @@ const config = {
           900: "#5E1B00",
           950: "#3F1200",
         },
-        // BiteBase secondary colors
         secondary: {
           DEFAULT: "#2EC4B6", // Teal - secondary brand color
           50: "#E6F9F7",
@@ -49,7 +89,6 @@ const config = {
           900: "#092724",
           950: "#041312",
         },
-        // BiteBase accent colors
         accent: {
           DEFAULT: "#011627", // Dark blue - accent color
           50: "#E6EDF2",
@@ -64,7 +103,6 @@ const config = {
           900: "#011627", // Base accent
           950: "#000B13",
         },
-        // BiteBase neutral colors
         neutral: {
           DEFAULT: "#FDFFFC", // Off-white - background color
           50: "#FDFFFC", // Base neutral
@@ -79,7 +117,6 @@ const config = {
           900: "#4F5C46",
           950: "#3F4938",
         },
-        // BiteBase warning color
         warning: {
           DEFAULT: "#F9DC5C", // Yellow - warning color
           50: "#FFFDF5",
@@ -94,7 +131,6 @@ const config = {
           900: "#F7C811",
           950: "#C59F09",
         },
-        // BiteBase error color
         destructive: {
           DEFAULT: "#E71D36", // Red - error/destructive color
           50: "#FDE9EC",
@@ -134,6 +170,7 @@ const config = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        jetbrains: ["'JetBrains Mono'", "monospace"],
       },
       keyframes: {
         "accordion-down": {
@@ -162,4 +199,3 @@ const config = {
 } satisfies Config
 
 export default config
-
