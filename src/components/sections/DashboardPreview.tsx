@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 export function DashboardPreview() {
   return (
@@ -158,8 +159,8 @@ export function DashboardPreview() {
         </div>
         
         <div className="mt-12 text-center">
-          <Button size="lg">
-            Explore the Dashboard
+          <Button asChild size="lg">
+            <Link to="/dashboard">Explore the Dashboard</Link>
           </Button>
         </div>
       </div>

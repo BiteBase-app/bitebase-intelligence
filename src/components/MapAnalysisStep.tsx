@@ -9,8 +9,8 @@ import { MapPin, Search, Layers, Filter, Ruler, Building, Users, DollarSign, Tre
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-// Temporary token - should be replaced with an environment variable
-const MAPBOX_TOKEN = "YOUR_MAPBOX_TOKEN";
+// Set the provided Mapbox token
+const MAPBOX_TOKEN = "pk.eyJ1Ijoia2hpd25pdGkiLCJhIjoiY203cm1oaWtyMWI4ejJpcHVuN2U2bHB6MiJ9.w9KWAvFEvF7bCdX-8Povkg";
 
 interface MapMetric {
   id: string;
@@ -73,7 +73,7 @@ const MapAnalysisStep = ({ formData, updateFormData }: MapAnalysisStepProps) => 
   }, [radius, updateFormData]);
 
   useEffect(() => {
-    if (!mapContainerRef.current || !MAPBOX_TOKEN || MAPBOX_TOKEN === "YOUR_MAPBOX_TOKEN") return;
+    if (!mapContainerRef.current) return;
     
     // Initialize the map centered on the restaurant's address or default location
     mapboxgl.accessToken = MAPBOX_TOKEN;
@@ -170,23 +170,7 @@ const MapAnalysisStep = ({ formData, updateFormData }: MapAnalysisStepProps) => 
       <div className="md:col-span-3 relative">
         {/* Map Container */}
         <div className="w-full h-full rounded-lg overflow-hidden border">
-          {MAPBOX_TOKEN === "YOUR_MAPBOX_TOKEN" ? (
-            <div className="flex items-center justify-center h-full bg-muted">
-              <div className="text-center p-4">
-                <p className="text-muted-foreground mb-2">Please add your Mapbox token to use the map</p>
-                <Input 
-                  placeholder="Enter your Mapbox public token" 
-                  className="max-w-md mx-auto"
-                  onChange={(e) => {
-                    // In a real app, we would store this token properly
-                    console.log("Token entered:", e.target.value);
-                  }}
-                />
-              </div>
-            </div>
-          ) : (
-            <div ref={mapContainerRef} style={{ width: "100%", height: "100%" }} />
-          )}
+          <div ref={mapContainerRef} style={{ width: "100%", height: "100%" }} />
           
           {/* Map Controls */}
           <div className="absolute top-4 left-4 z-10">
