@@ -24,12 +24,12 @@ export function TierRestriction({
     return fallback ? (
       <>{fallback}</>
     ) : (
-      <div className="p-4 border border-amber-200 bg-amber-50 rounded-md flex items-center gap-3">
-        <AlertTriangle className="h-5 w-5 text-amber-500" />
+      <div className="p-6 rounded-xl bg-amber-500/10 backdrop-blur-lg border border-amber-500/20 shadow-lg flex items-center gap-4">
+        <AlertTriangle className="h-6 w-6 text-amber-500" />
         <div>
           {isMultiLocationFeature ? (
             <>
-              <p className="text-sm font-medium text-amber-800">
+              <p className="text-sm font-medium text-amber-700">
                 Multiple restaurant locations require the Franchise tier
               </p>
               <p className="text-xs text-amber-600 mt-1">
@@ -38,7 +38,7 @@ export function TierRestriction({
             </>
           ) : (
             <>
-              <p className="text-sm font-medium text-amber-800">
+              <p className="text-sm font-medium text-amber-700">
                 This feature requires the {requiredTier.charAt(0).toUpperCase() + requiredTier.slice(1)} tier or higher
               </p>
               <p className="text-xs text-amber-600 mt-1">
