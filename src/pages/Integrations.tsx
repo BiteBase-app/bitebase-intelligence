@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { GradientHeading } from "@/components/ui/gradient-heading";
 import { StripePaymentButton } from "@/components/StripePaymentButton";
 import { N8NWebhookForm } from "@/components/N8NWebhookForm";
-import { CreditCard, Workflow, ArrowRight } from "lucide-react";
+import { CreditCard, Workflow, ArrowRight, Brain, ActivitySquare, BookOpen, BarChart, Users } from "lucide-react";
 
 const Integrations = () => {
   return (
@@ -15,31 +15,31 @@ const Integrations = () => {
       <div className="container mx-auto py-12">
         <div className="mb-12 text-center">
           <GradientHeading as="h1" className="mb-4">
-            Integrations
+            Mind Enhancement Services
           </GradientHeading>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Connect BiteBase with your favorite services to streamline your restaurant management workflow.
+            Unlock your cognitive potential with our premium services and digital solutions.
           </p>
         </div>
 
-        <Tabs defaultValue="payments" className="max-w-4xl mx-auto">
+        <Tabs defaultValue="services" className="max-w-4xl mx-auto">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="payments">
-              <CreditCard className="mr-2 h-4 w-4" />
-              Payments
+            <TabsTrigger value="services">
+              <Brain className="mr-2 h-4 w-4" />
+              Cognitive Services
             </TabsTrigger>
             <TabsTrigger value="automation">
-              <Workflow className="mr-2 h-4 w-4" />
+              <ActivitySquare className="mr-2 h-4 w-4" />
               Automation
             </TabsTrigger>
           </TabsList>
           
-          <TabsContent value="payments" className="mt-6">
+          <TabsContent value="services" className="mt-6">
             <Card>
               <CardHeader>
-                <CardTitle>Payment Integration</CardTitle>
+                <CardTitle>Premium Mind Enhancement Programs</CardTitle>
                 <CardDescription>
-                  Process payments securely with Stripe integration.
+                  Choose from our scientifically-backed cognitive enhancement programs.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -47,20 +47,20 @@ const Integrations = () => {
                   <Card className="bg-muted/50">
                     <CardHeader>
                       <CardTitle className="text-xl">Basic</CardTitle>
-                      <CardDescription>For small restaurants</CardDescription>
+                      <CardDescription>Personal cognitive training</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="text-3xl font-bold">$49</div>
                       <p className="text-muted-foreground">per month</p>
                       <ul className="mt-4 space-y-2 text-sm">
-                        <li>• Basic location analysis</li>
-                        <li>• Competition tracking</li>
-                        <li>• Monthly reports</li>
+                        <li>• Core cognitive assessments</li>
+                        <li>• Memory enhancement exercises</li>
+                        <li>• Monthly progress reports</li>
                       </ul>
                     </CardContent>
                     <CardFooter>
                       <StripePaymentButton 
-                        productName="Basic Plan" 
+                        productName="Basic Mind Program" 
                         amount={4900} 
                         buttonText="Subscribe Now"
                       />
@@ -73,21 +73,21 @@ const Integrations = () => {
                     </div>
                     <CardHeader>
                       <CardTitle className="text-xl">Professional</CardTitle>
-                      <CardDescription>For growing restaurants</CardDescription>
+                      <CardDescription>Advanced cognitive enhancement</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="text-3xl font-bold">$99</div>
                       <p className="text-muted-foreground">per month</p>
                       <ul className="mt-4 space-y-2 text-sm">
-                        <li>• Advanced location analytics</li>
-                        <li>• Demographic insights</li>
-                        <li>• Weekly reports</li>
-                        <li>• Menu optimization</li>
+                        <li>• Comprehensive cognitive assessment</li>
+                        <li>• Personalized training protocol</li>
+                        <li>• Weekly performance tracking</li>
+                        <li>• Focus & attention optimization</li>
                       </ul>
                     </CardContent>
                     <CardFooter>
                       <StripePaymentButton 
-                        productName="Professional Plan" 
+                        productName="Professional Mind Program" 
                         amount={9900} 
                         buttonText="Subscribe Now"
                         onSuccess={() => console.log("Professional plan subscribed")}
@@ -98,22 +98,22 @@ const Integrations = () => {
                   <Card className="bg-muted/50">
                     <CardHeader>
                       <CardTitle className="text-xl">Enterprise</CardTitle>
-                      <CardDescription>For restaurant chains</CardDescription>
+                      <CardDescription>Team-based cognitive solutions</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="text-3xl font-bold">$249</div>
                       <p className="text-muted-foreground">per month</p>
                       <ul className="mt-4 space-y-2 text-sm">
-                        <li>• Full market intelligence</li>
-                        <li>• Multi-location tracking</li>
-                        <li>• API access</li>
-                        <li>• Custom reporting</li>
-                        <li>• Dedicated support</li>
+                        <li>• Team cognitive assessments</li>
+                        <li>• Group training sessions</li>
+                        <li>• API access for integration</li>
+                        <li>• Custom reporting dashboards</li>
+                        <li>• Dedicated cognitive coach</li>
                       </ul>
                     </CardContent>
                     <CardFooter>
                       <StripePaymentButton 
-                        productName="Enterprise Plan" 
+                        productName="Enterprise Mind Program" 
                         amount={24900} 
                         buttonText="Subscribe Now"
                       />
@@ -123,19 +123,19 @@ const Integrations = () => {
 
                 <Card className="mt-8">
                   <CardHeader>
-                    <CardTitle className="text-lg">One-time Services</CardTitle>
+                    <CardTitle className="text-lg">One-time Assessments</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="p-4 border rounded-lg flex items-center justify-between">
                         <div>
-                          <h3 className="font-medium">Location Analysis Report</h3>
-                          <p className="text-sm text-muted-foreground">In-depth analysis of a specific location</p>
+                          <h3 className="font-medium">Comprehensive Cognitive Assessment</h3>
+                          <p className="text-sm text-muted-foreground">In-depth analysis of your cognitive strengths and weaknesses</p>
                         </div>
                         <div className="text-right">
                           <div className="font-bold">$199</div>
                           <StripePaymentButton 
-                            productName="Location Analysis Report" 
+                            productName="Cognitive Assessment" 
                             amount={19900}
                             buttonText="Buy Now" 
                           />
@@ -143,13 +143,13 @@ const Integrations = () => {
                       </div>
                       <div className="p-4 border rounded-lg flex items-center justify-between">
                         <div>
-                          <h3 className="font-medium">Competitor Analysis</h3>
-                          <p className="text-sm text-muted-foreground">Detailed report on local competition</p>
+                          <h3 className="font-medium">Focus & Productivity Consultation</h3>
+                          <p className="text-sm text-muted-foreground">One-on-one session with a cognitive specialist</p>
                         </div>
                         <div className="text-right">
                           <div className="font-bold">$149</div>
                           <StripePaymentButton 
-                            productName="Competitor Analysis" 
+                            productName="Focus Consultation" 
                             amount={14900}
                             buttonText="Buy Now" 
                           />
@@ -166,9 +166,9 @@ const Integrations = () => {
             <div className="grid gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>n8n Workflow Automation</CardTitle>
+                  <CardTitle>n8n Cognitive Workflow Automation</CardTitle>
                   <CardDescription>
-                    Connect BiteBase to n8n to automate your restaurant analysis workflows.
+                    Connect your cognitive enhancement programs to n8n to automate assessment and progress tracking.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -176,15 +176,15 @@ const Integrations = () => {
                     <div>
                       <h3 className="text-lg font-medium mb-2">What is n8n?</h3>
                       <p className="text-muted-foreground mb-4">
-                        n8n is a workflow automation tool that allows you to connect BiteBase with thousands of other apps and services.
+                        n8n is a workflow automation tool that allows you to connect your cognitive enhancement platform with thousands of other apps and services.
                       </p>
                       <h3 className="text-lg font-medium mb-2">Use Cases</h3>
                       <ul className="space-y-2 text-sm text-muted-foreground">
-                        <li>• Schedule automated restaurant market reports</li>
-                        <li>• Send notifications when customer trends change</li>
-                        <li>• Sync location data with your CRM</li>
-                        <li>• Create tasks in project management tools</li>
-                        <li>• Trigger analysis when new data becomes available</li>
+                        <li>• Schedule automated cognitive assessments</li>
+                        <li>• Send notifications when performance metrics change</li>
+                        <li>• Sync progress data with your calendar or CRM</li>
+                        <li>• Create personalized training tasks</li>
+                        <li>• Trigger follow-up sessions based on performance</li>
                       </ul>
                       <div className="mt-6">
                         <Button variant="outline" className="flex items-center" asChild>
@@ -204,7 +204,7 @@ const Integrations = () => {
               
               <Card>
                 <CardHeader>
-                  <CardTitle>Ready-made n8n Templates</CardTitle>
+                  <CardTitle>Ready-made Cognitive Workflow Templates</CardTitle>
                   <CardDescription>
                     Get started quickly with these pre-built workflow templates
                   </CardDescription>
@@ -213,11 +213,11 @@ const Integrations = () => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <Card className="bg-muted/50">
                       <CardHeader className="p-4">
-                        <CardTitle className="text-base">Daily Market Analysis</CardTitle>
+                        <CardTitle className="text-base">Daily Brain Training</CardTitle>
                       </CardHeader>
                       <CardContent className="p-4 pt-0">
                         <p className="text-sm text-muted-foreground">
-                          Automatically run market analysis and receive daily reports.
+                          Automatically schedule and track daily cognitive exercises.
                         </p>
                       </CardContent>
                       <CardFooter className="p-4 pt-0">
@@ -227,11 +227,11 @@ const Integrations = () => {
                     
                     <Card className="bg-muted/50">
                       <CardHeader className="p-4">
-                        <CardTitle className="text-base">Competitor Alerts</CardTitle>
+                        <CardTitle className="text-base">Performance Alerts</CardTitle>
                       </CardHeader>
                       <CardContent className="p-4 pt-0">
                         <p className="text-sm text-muted-foreground">
-                          Get notified when new competitors open in your target areas.
+                          Get notified when cognitive metrics reach targets or decline.
                         </p>
                       </CardContent>
                       <CardFooter className="p-4 pt-0">
@@ -241,11 +241,11 @@ const Integrations = () => {
                     
                     <Card className="bg-muted/50">
                       <CardHeader className="p-4">
-                        <CardTitle className="text-base">CRM Integration</CardTitle>
+                        <CardTitle className="text-base">Progress Reports</CardTitle>
                       </CardHeader>
                       <CardContent className="p-4 pt-0">
                         <p className="text-sm text-muted-foreground">
-                          Sync your customer data with popular CRM platforms.
+                          Automatically generate and deliver personalized progress reports.
                         </p>
                       </CardContent>
                       <CardFooter className="p-4 pt-0">

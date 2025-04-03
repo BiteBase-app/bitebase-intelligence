@@ -14,7 +14,7 @@ interface StripePaymentButtonProps {
 export const StripePaymentButton = ({
   productName,
   amount,
-  buttonText = "Upgrade Now",
+  buttonText = "Subscribe Now",
   onSuccess,
   disabled = false
 }: StripePaymentButtonProps) => {

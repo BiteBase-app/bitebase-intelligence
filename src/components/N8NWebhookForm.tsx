@@ -35,11 +35,11 @@ export const N8NWebhookForm = () => {
         mode: "no-cors", // Add this to handle CORS
         body: JSON.stringify({
           timestamp: new Date().toISOString(),
-          event: "restaurant_analysis_requested",
+          event: "cognitive_assessment_requested",
           data: {
-            location: "New York, NY",
-            cuisine: "Italian",
-            radius: 2.5
+            assessmentType: "Cognitive Function",
+            duration: "30 minutes",
+            focusAreas: ["Memory", "Attention", "Processing Speed"]
           },
           triggered_from: window.location.origin,
         }),
@@ -65,9 +65,9 @@ export const N8NWebhookForm = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>n8n Webhook Integration</CardTitle>
+        <CardTitle>n8n Workflow Integration</CardTitle>
         <CardDescription>
-          Connect BiteBase to your n8n workflows using webhooks to automate restaurant analysis tasks.
+          Connect your cognitive enhancement services to n8n workflows to automate assessment and tracking.
         </CardDescription>
       </CardHeader>
       <CardContent>
