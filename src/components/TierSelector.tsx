@@ -11,7 +11,8 @@ export function TierSelector() {
     { value: "free", label: "Free Trial" },
     { value: "growth", label: "Growth ($14.99/month)" },
     { value: "pro", label: "Pro ($109/month)" },
-    { value: "enterprise", label: "Enterprise ($599/month)" }
+    { value: "enterprise", label: "Enterprise ($599/month)" },
+    { value: "franchise", label: "Franchise ($999/month)" }
   ];
 
   return (

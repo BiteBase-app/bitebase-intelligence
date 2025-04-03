@@ -93,7 +93,8 @@ export function Pricing() {
         "Full access to all features for 14 days",
         "Basic analytics dashboard",
         "Limited historical data",
-        "Email support"
+        "Email support",
+        "Single restaurant location"
       ],
       buttonText: "Start Free Trial"
     },
@@ -109,7 +110,8 @@ export function Pricing() {
         "Simple campaign creation",
         "Basic customer segmentation",
         "Email support with 48-hour response",
-        "3 months of historical data"
+        "3 months of historical data",
+        "Single restaurant location"
       ],
       popular: true,
       buttonText: "Start Free Trial"
@@ -127,7 +129,8 @@ export function Pricing() {
         "Detailed customer behavior analysis",
         "Priority email support (24-hour)",
         "1 year of historical data",
-        "Automated weekly reports"
+        "Automated weekly reports",
+        "Single restaurant location"
       ],
       buttonText: "Start Free Trial"
     },
@@ -144,7 +147,26 @@ export function Pricing() {
         "Advanced CRM integration",
         "Dedicated account manager",
         "Unlimited historical data",
-        "API access & custom integrations"
+        "API access & custom integrations",
+        "Multiple restaurant locations"
+      ],
+      buttonText: "Contact Sales"
+    },
+    {
+      title: "Franchise",
+      price: "$999",
+      description: "For restaurant franchises",
+      tierLevel: "franchise" as TierLevel,
+      features: [
+        "All Enterprise features",
+        "Franchise management dashboard",
+        "Unlimited restaurant locations",
+        "Brand consistency monitoring",
+        "Cross-location performance comparison",
+        "Centralized menu management",
+        "Franchise-wide analytics",
+        "Location-specific customization",
+        "Franchise growth planning tools"
       ],
       buttonText: "Contact Sales"
     }
@@ -160,7 +182,7 @@ export function Pricing() {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {tiers.map((tier, i) => (
             <PricingTier key={i} {...tier} />
           ))}
