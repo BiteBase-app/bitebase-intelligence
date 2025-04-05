@@ -1,4 +1,3 @@
-
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -35,7 +34,7 @@ const Location = () => {
           </TabsList>
           
           <TabsContent value="map" className="mt-0">
-            <Card className="mb-6">
+            <Card className="mb-6 shadow-md border border-border">
               <CardHeader>
                 <CardTitle>Location Analysis</CardTitle>
                 <CardDescription>
@@ -48,7 +47,7 @@ const Location = () => {
             </Card>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-              <Card>
+              <Card className="shadow-md border border-border">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -63,7 +62,7 @@ const Location = () => {
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="shadow-md border border-border">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -78,7 +77,7 @@ const Location = () => {
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="shadow-md border border-border">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -93,7 +92,7 @@ const Location = () => {
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="shadow-md border border-border">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -110,7 +109,7 @@ const Location = () => {
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
+              <Card className="shadow-md border border-border">
                 <CardHeader>
                   <CardTitle>Foot Traffic Analysis</CardTitle>
                   <CardDescription>
@@ -173,7 +172,7 @@ const Location = () => {
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="shadow-md border border-border">
                 <CardHeader>
                   <CardTitle>Demographic Insights</CardTitle>
                   <CardDescription>
@@ -236,7 +235,7 @@ const Location = () => {
           </TabsContent>
           
           <TabsContent value="analysis" className="mt-0">
-            <Card className="mb-6">
+            <Card className="mb-6 shadow-md border border-border">
               <CardHeader>
                 <CardTitle>Competitive Landscape</CardTitle>
                 <CardDescription>
@@ -247,12 +246,10 @@ const Location = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                   <div className="lg:col-span-2">
                     <div className="relative h-[400px] border rounded-md overflow-hidden bg-neutral-50">
-                      {/* Placeholder for competitive map */}
                       <div className="absolute inset-0 bg-bitebase-green-50">
                         <div className="w-full h-full opacity-10" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }}></div>
                       </div>
                       
-                      {/* Central marker */}
                       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                         <div className="h-8 w-8 rounded-full bg-bitebase-green-500 flex items-center justify-center text-white shadow-lg">
                           <Building className="h-4 w-4" />
@@ -260,7 +257,6 @@ const Location = () => {
                         <div className="absolute -inset-1 rounded-full border-4 border-bitebase-green-500 opacity-20 animate-ping"></div>
                       </div>
                       
-                      {/* Competitor markers */}
                       {Array(8).fill(0).map((_, i) => {
                         const angle = (i / 8) * Math.PI * 2;
                         const distance = 100 + Math.random() * 50;
@@ -282,7 +278,6 @@ const Location = () => {
                         );
                       })}
                       
-                      {/* Range circles */}
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="h-40 w-40 rounded-full border border-bitebase-green-300 opacity-60" />
                       </div>
@@ -339,7 +334,7 @@ const Location = () => {
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="shadow-md border border-border">
               <CardHeader>
                 <CardTitle>Strategic Recommendations</CardTitle>
                 <CardDescription>
@@ -348,7 +343,7 @@ const Location = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <Card>
+                  <Card className="shadow-sm border border-border">
                     <CardContent className="p-4">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="h-10 w-10 rounded-full bg-bitebase-green-100 flex items-center justify-center">
@@ -363,7 +358,7 @@ const Location = () => {
                     </CardContent>
                   </Card>
                   
-                  <Card>
+                  <Card className="shadow-sm border border-border">
                     <CardContent className="p-4">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="h-10 w-10 rounded-full bg-bitebase-green-100 flex items-center justify-center">
@@ -378,7 +373,7 @@ const Location = () => {
                     </CardContent>
                   </Card>
                   
-                  <Card>
+                  <Card className="shadow-sm border border-border">
                     <CardContent className="p-4">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="h-10 w-10 rounded-full bg-bitebase-green-100 flex items-center justify-center">

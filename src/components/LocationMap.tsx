@@ -132,7 +132,7 @@ const LocationMap = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-6 w-full h-[700px]">
       {/* Left Sidebar - Analysis Controls */}
-      <div className="md:col-span-1 glass p-4 space-y-6">
+      <div className="md:col-span-1 p-4 space-y-6 border border-border rounded-lg shadow-md bg-card">
         <div className="space-y-2">
           <h3 className="text-lg font-medium">Location Analysis</h3>
           <p className="text-sm text-muted-foreground">Configure parameters for your market analysis.</p>
@@ -179,7 +179,7 @@ const LocationMap = () => {
           </div>
           
           <Button 
-            className="w-full glass-button" 
+            className="w-full" 
             onClick={startAnalysis}
             disabled={isAnalyzing || !location}
           >
@@ -192,12 +192,12 @@ const LocationMap = () => {
         <TierRestriction requiredTier="growth">
           <div className="space-y-3">
             <h4 className="text-sm font-medium">Advanced Analysis</h4>
-            <Button variant="outline" className="w-full flex items-center justify-start glass-button" disabled>
+            <Button variant="outline" className="w-full flex items-center justify-start" disabled>
               <Users className="mr-2 h-4 w-4" />
               <span>Demographics Analysis</span>
             </Button>
             
-            <Button variant="outline" className="w-full flex items-center justify-start glass-button" disabled>
+            <Button variant="outline" className="w-full flex items-center justify-start" disabled>
               <TrendingUp className="mr-2 h-4 w-4" />
               <span>Competitive Analysis</span>
             </Button>
@@ -208,25 +208,25 @@ const LocationMap = () => {
       {/* Main content - Map and visualization */}
       <div className="md:col-span-3 relative">
         {/* Map Container */}
-        <div className="w-full h-full rounded-lg overflow-hidden border">
+        <div className="w-full h-full rounded-lg overflow-hidden border border-border shadow-md">
           <div ref={mapContainerRef} style={{ width: "100%", height: "100%" }} />
           
           {/* Map Controls */}
           <div className="absolute top-4 left-4 z-10">
-            <Card className="w-full max-w-xs glass shadow-lg">
+            <Card className="w-full max-w-xs shadow-md border border-border">
               <CardHeader className="p-3">
                 <CardTitle className="text-base">Map Controls</CardTitle>
               </CardHeader>
               <CardContent className="p-3 pt-0 flex gap-2 flex-wrap">
-                <Button variant="outline" size="sm" className="glass-button">
+                <Button variant="outline" size="sm">
                   <Layers className="h-4 w-4 mr-1" />
                   Layers
                 </Button>
-                <Button variant="outline" size="sm" className="glass-button">
+                <Button variant="outline" size="sm">
                   <Filter className="h-4 w-4 mr-1" />
                   Filter
                 </Button>
-                <Button variant="outline" size="sm" className="glass-button">
+                <Button variant="outline" size="sm">
                   <Ruler className="h-4 w-4 mr-1" />
                   Measure
                 </Button>
@@ -237,7 +237,7 @@ const LocationMap = () => {
           {/* Floating Metrics */}
           <div className="absolute bottom-4 left-4 right-4 z-10 flex gap-3 overflow-x-auto pb-2">
             {metrics.map((metric) => (
-              <Card key={metric.id} className="min-w-[150px] max-w-[200px] flex-shrink-0 glass">
+              <Card key={metric.id} className="min-w-[150px] max-w-[200px] flex-shrink-0 shadow-md border border-border">
                 <CardContent className="p-3">
                   <div className="flex items-start justify-between">
                     <div>
