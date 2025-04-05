@@ -25,31 +25,30 @@ export const StripePaymentButton = ({
     setIsLoading(true);
     
     try {
-      // This is a mock implementation that simulates a payment flow
-      // In a real implementation, this would call your backend API or Supabase Edge Function
+      // This is a placeholder for real Stripe integration
+      // In production, this would call a Supabase Edge Function to create a Stripe checkout session
       
       toast({
         title: "Processing payment...",
         description: "Please wait while we prepare your checkout session.",
       });
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Real implementation would make an API call to create a checkout session
+      console.error("Stripe integration is not fully implemented - requires Supabase connection");
       
-      // Normally, your backend would return a session URL from Stripe
-      // For demo purposes, we're just showing a success message
+      // Show an error for now since we don't have a real backend
       toast({
-        title: "Payment Successful!",
-        description: `Thank you for purchasing ${productName}!`,
+        title: "Payment System Notice",
+        description: "Payment processing is not available in demo mode. In production, this would create a real Stripe checkout session.",
         variant: "default",
       });
       
-      if (onSuccess) {
-        onSuccess();
-      }
+      // In a real implementation with Stripe, the successful flow would look like:
+      // 1. Call backend to create a checkout session
+      // 2. Redirect to the Stripe checkout page: window.location.href = data.url;
+      // 3. After successful payment, Stripe would redirect back to success page
+      // 4. Trigger onSuccess callback after verification
       
-      // In a real implementation, the user would be redirected to Stripe's checkout page:
-      // window.location.href = data.url;
     } catch (error) {
       console.error("Payment error:", error);
       toast({

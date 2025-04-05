@@ -27,7 +27,7 @@ export const N8NWebhookForm = () => {
     console.log("Triggering n8n webhook:", webhookUrl);
 
     try {
-      const response = await fetch(webhookUrl, {
+      await fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,7 +45,6 @@ export const N8NWebhookForm = () => {
         }),
       });
 
-      // Since we're using no-cors, we'll show a more informative message
       toast({
         title: "Request Sent",
         description: "The request was sent to n8n. Check your workflow execution to confirm it was triggered.",
@@ -63,7 +62,7 @@ export const N8NWebhookForm = () => {
   };
 
   return (
-    <Card>
+    <Card className="glass">
       <CardHeader>
         <CardTitle>n8n Workflow Integration</CardTitle>
         <CardDescription>
