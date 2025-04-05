@@ -25,29 +25,34 @@ export const StripePaymentButton = ({
     setIsLoading(true);
     
     try {
-      // This is a placeholder for real Stripe integration
-      // In production, this would call a Supabase Edge Function to create a Stripe checkout session
-      
-      toast({
-        title: "Processing payment...",
-        description: "Please wait while we prepare your checkout session.",
+      // For production, replace with real Stripe integration using Supabase Edge Function
+      const response = await fetch('/api/create-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          productName,
+          amount,
+          successUrl: window.location.origin + '/payment-success',
+          cancelUrl: window.location.origin + '/payment-canceled',
+        }),
       });
       
-      // Real implementation would make an API call to create a checkout session
-      console.error("Stripe integration is not fully implemented - requires Supabase connection");
+      if (!response.ok) {
+        throw new Error('Payment service unavailable');
+      }
       
-      // Show an error for now since we don't have a real backend
-      toast({
-        title: "Payment System Notice",
-        description: "Payment processing is not available in demo mode. In production, this would create a real Stripe checkout session.",
-        variant: "default",
-      });
+      const data = await response.json();
       
-      // In a real implementation with Stripe, the successful flow would look like:
-      // 1. Call backend to create a checkout session
-      // 2. Redirect to the Stripe checkout page: window.location.href = data.url;
-      // 3. After successful payment, Stripe would redirect back to success page
-      // 4. Trigger onSuccess callback after verification
+      // Redirect to Stripe checkout
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('Invalid response from payment service');
+      }
+      
+      // onSuccess callback will be handled after redirect back from Stripe
       
     } catch (error) {
       console.error("Payment error:", error);

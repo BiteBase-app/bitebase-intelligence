@@ -32,7 +32,7 @@ export const N8NWebhookForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        mode: "no-cors", // Add this to handle CORS
+        mode: "no-cors", // Handle CORS for external webhook calls
         body: JSON.stringify({
           timestamp: new Date().toISOString(),
           event: "cognitive_assessment_requested",

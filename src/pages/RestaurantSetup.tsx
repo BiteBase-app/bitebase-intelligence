@@ -44,12 +44,13 @@ const RestaurantSetup = () => {
     demographicAnalysis: false,
     locationIntelligence: false,
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const updateFormData = (key: string, value: any) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     // Validate current step
     if (currentStep === 0 && !validateBusinessType(businessType, toast)) {
       return;
@@ -68,12 +69,41 @@ const RestaurantSetup = () => {
     }
 
     if (currentStep === steps.length - 1) {
-      // Complete the setup
-      toast({
-        title: "Restaurant setup complete!",
-        description: "Your restaurant profile has been created successfully.",
-      });
-      navigate("/dashboard");
+      // Submit data to database
+      setIsSubmitting(true);
+      try {
+        // In production, this would be an API call to save the restaurant profile
+        // Replace with your Supabase integration
+        const response = await fetch('/api/restaurant-profiles', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            businessType,
+            ...formData
+          }),
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to create restaurant profile');
+        }
+        
+        toast({
+          title: "Restaurant setup complete!",
+          description: "Your restaurant profile has been created successfully.",
+        });
+        navigate("/dashboard");
+      } catch (error) {
+        console.error("Error saving restaurant profile:", error);
+        toast({
+          title: "Error",
+          description: "There was a problem creating your restaurant profile. Please try again.",
+          variant: "destructive",
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
       return;
     }
 
@@ -127,7 +157,7 @@ const RestaurantSetup = () => {
         {/* Progress Steps */}
         <SetupProgressSteps steps={steps} currentStep={currentStep} />
 
-        <Card className="mt-12">
+        <Card className="mt-12 glass">
           {/* Step Content */}
           {renderStepContent()}
 
@@ -137,12 +167,17 @@ const RestaurantSetup = () => {
               variant="outline"
               onClick={handleBack}
               disabled={currentStep === 0}
+              className="glass-button"
             >
               Back
             </Button>
-            <Button onClick={handleNext}>
+            <Button 
+              onClick={handleNext}
+              disabled={isSubmitting}
+              className="glass-button"
+            >
               {currentStep === steps.length - 1 ? (
-                "Complete Setup"
+                isSubmitting ? "Saving..." : "Complete Setup"
               ) : (
                 <>
                   Next Step

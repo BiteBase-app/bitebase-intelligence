@@ -75,7 +75,7 @@ const MapAnalysisStep = ({ formData, updateFormData }: MapAnalysisStepProps) => 
   useEffect(() => {
     if (!mapContainerRef.current) return;
     
-    // Initialize the map centered on the restaurant's address or default location
+    // Initialize the map
     mapboxgl.accessToken = MAPBOX_TOKEN;
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
@@ -91,10 +91,11 @@ const MapAnalysisStep = ({ formData, updateFormData }: MapAnalysisStepProps) => 
       trackUserLocation: true
     }), 'top-right');
     
-    // Add a marker for the restaurant location if coordinates are available
+    // Add a marker for the restaurant location if address is provided
     // In production, we would geocode the address to get coordinates
     if (formData.streetAddress && formData.city) {
-      // This would use a real geocoding service in production
+      // In production, use a geocoding API here
+      // For now we'll use a placeholder marker
       new mapboxgl.Marker()
         .setLngLat([-73.9857, 40.7484])
         .addTo(map);
@@ -115,46 +116,32 @@ const MapAnalysisStep = ({ formData, updateFormData }: MapAnalysisStepProps) => 
     setIsAnalyzing(true);
     
     try {
-      // In production, this would call an actual API endpoint
-      console.log("Starting analysis for location:", { 
+      // In production, this would call an API endpoint to analyze the location
+      const requestData = { 
         address: formData.streetAddress,
         city: formData.city,
         state: formData.state,
         zipCode: formData.zipCode,
         radius: radius[0]
-      });
+      };
       
-      // Simulate API call with timeout
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      console.log("Starting analysis for location:", requestData);
       
-      // In production, these values would come from the API response
-      setMetrics(prev => [
-        {
-          ...prev[0],
-          value: "Loading...",
-          change: null
-        },
-        {
-          ...prev[1],
-          value: "Loading...",
-          change: null
-        },
-        {
-          ...prev[2],
-          value: "Loading...",
-          change: null
-        },
-        {
-          ...prev[3],
-          value: "Loading...",
-          change: null
-        },
-        {
-          ...prev[4],
-          value: "Loading...",
-          change: null
-        }
-      ]);
+      // In production, replace with real API call
+      // const response = await fetch('/api/analyze-location', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(requestData)
+      // });
+      // const data = await response.json();
+      
+      // For now, set placeholder "loading" state
+      setMetrics(prev => prev.map(metric => ({
+        ...metric,
+        value: "Awaiting data",
+        change: null
+      })));
+      
     } catch (error) {
       console.error("Error during analysis:", error);
     } finally {
@@ -200,7 +187,7 @@ const MapAnalysisStep = ({ formData, updateFormData }: MapAnalysisStepProps) => 
           </div>
           
           <Button 
-            className="w-full" 
+            className="w-full glass-button" 
             onClick={startAnalysis} 
             disabled={isAnalyzing || !formData.streetAddress || !formData.city}
           >
@@ -217,17 +204,17 @@ const MapAnalysisStep = ({ formData, updateFormData }: MapAnalysisStepProps) => 
           
           {/* Map Controls */}
           <div className="absolute top-4 left-4 z-10">
-            <Card className="w-full max-w-xs bg-background/95 backdrop-blur-sm shadow-lg">
+            <Card className="w-full max-w-xs glass shadow-lg">
               <CardContent className="p-3 flex gap-2 flex-wrap">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="glass-button">
                   <Layers className="h-4 w-4 mr-1" />
                   Layers
                 </Button>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="glass-button">
                   <Filter className="h-4 w-4 mr-1" />
                   Filter
                 </Button>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="glass-button">
                   <Ruler className="h-4 w-4 mr-1" />
                   Measure
                 </Button>
@@ -238,7 +225,7 @@ const MapAnalysisStep = ({ formData, updateFormData }: MapAnalysisStepProps) => 
           {/* Floating Metrics */}
           <div className="absolute bottom-4 left-4 right-4 z-10 flex gap-3 overflow-x-auto pb-2">
             {metrics.map((metric) => (
-              <Card key={metric.id} className="min-w-[150px] max-w-[200px] flex-shrink-0 bg-background/95 backdrop-blur-sm">
+              <Card key={metric.id} className="min-w-[150px] max-w-[200px] flex-shrink-0 glass">
                 <CardContent className="p-3">
                   <div className="flex items-start justify-between">
                     <div>

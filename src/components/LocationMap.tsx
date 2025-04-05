@@ -104,16 +104,21 @@ const LocationMap = () => {
     setIsAnalyzing(true);
     
     try {
-      // In production, this would be an API call
+      // In production, this would be an API call to analyze location
       console.log("Starting analysis for:", { location, radius: radius[0], cuisine });
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // In production, replace with real API call
+      // const response = await fetch('/api/analyze-location', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ location, radius: radius[0], cuisine })
+      // });
+      // const data = await response.json();
       
-      // In production, these values would come from the API response
+      // For now, set placeholder "loading" state 
       setMetrics(prev => prev.map(metric => ({
         ...metric,
-        value: "Loading...",
+        value: "Awaiting data",
         change: null
       })));
       
@@ -174,7 +179,7 @@ const LocationMap = () => {
           </div>
           
           <Button 
-            className="w-full" 
+            className="w-full glass-button" 
             onClick={startAnalysis}
             disabled={isAnalyzing || !location}
           >
@@ -187,12 +192,12 @@ const LocationMap = () => {
         <TierRestriction requiredTier="growth">
           <div className="space-y-3">
             <h4 className="text-sm font-medium">Advanced Analysis</h4>
-            <Button variant="outline" className="w-full flex items-center justify-start" disabled>
+            <Button variant="outline" className="w-full flex items-center justify-start glass-button" disabled>
               <Users className="mr-2 h-4 w-4" />
               <span>Demographics Analysis</span>
             </Button>
             
-            <Button variant="outline" className="w-full flex items-center justify-start" disabled>
+            <Button variant="outline" className="w-full flex items-center justify-start glass-button" disabled>
               <TrendingUp className="mr-2 h-4 w-4" />
               <span>Competitive Analysis</span>
             </Button>
@@ -213,15 +218,15 @@ const LocationMap = () => {
                 <CardTitle className="text-base">Map Controls</CardTitle>
               </CardHeader>
               <CardContent className="p-3 pt-0 flex gap-2 flex-wrap">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="glass-button">
                   <Layers className="h-4 w-4 mr-1" />
                   Layers
                 </Button>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="glass-button">
                   <Filter className="h-4 w-4 mr-1" />
                   Filter
                 </Button>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="glass-button">
                   <Ruler className="h-4 w-4 mr-1" />
                   Measure
                 </Button>

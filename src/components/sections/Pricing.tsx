@@ -1,13 +1,14 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Star } from "lucide-react";
 import { useTier, TierLevel } from "@/contexts/TierContext";
 import { useToast } from "@/hooks/use-toast";
+import { StripePaymentButton } from "@/components/StripePaymentButton";
 
 interface PricingTierProps {
   title: string;
   price: string;
+  priceInCents: number;
   description: string;
   features: string[];
   tierLevel: TierLevel;
@@ -18,6 +19,7 @@ interface PricingTierProps {
 const PricingTier = ({ 
   title, 
   price, 
+  priceInCents,
   description, 
   features, 
   tierLevel,
@@ -28,19 +30,33 @@ const PricingTier = ({
   const { toast } = useToast();
   
   const handleSubscribe = () => {
-    // In a real app, this would handle payment processing
-    setCurrentTier(tierLevel);
-    toast({
-      title: "Subscription Updated",
-      description: `You are now subscribed to the ${title} plan.`,
-      duration: 3000,
-    });
+    if (tierLevel === "enterprise" || tierLevel === "franchise") {
+      // For high-tier plans, we'll need sales contact
+      toast({
+        title: "Contact Sales",
+        description: "Please contact our sales team for Enterprise or Franchise plans.",
+        duration: 5000,
+      });
+      return;
+    }
+    
+    // For free tier, just set it directly
+    if (tierLevel === "free") {
+      setCurrentTier(tierLevel);
+      toast({
+        title: "Free Trial Activated",
+        description: "You are now on the Free Trial plan.",
+        duration: 3000,
+      });
+    }
+    
+    // Other tiers handled by StripePaymentButton through the payment flow
   };
   
   const isCurrentTier = currentTier === tierLevel;
   
   return (
-    <Card className={`${popular ? "border-bite-500 shadow-lg" : ""} flex flex-col h-full relative`}>
+    <Card className={`${popular ? "border-bite-500 shadow-lg" : ""} flex flex-col h-full relative glass`}>
       {popular && (
         <div className="absolute top-0 right-0 -translate-y-1/2 bg-bite-600 text-white px-4 py-1 rounded-full text-sm font-medium">
           Most Popular
@@ -70,13 +86,31 @@ const PricingTier = ({
         </ul>
       </CardContent>
       <CardFooter>
-        <Button 
-          className={`w-full ${popular ? "bg-bite-600 hover:bg-bite-700" : ""}`}
-          onClick={handleSubscribe}
-          disabled={isCurrentTier}
-        >
-          {isCurrentTier ? "Current Plan" : buttonText}
-        </Button>
+        {isCurrentTier ? (
+          <Button className="w-full" disabled>
+            Current Plan
+          </Button>
+        ) : tierLevel === "free" ? (
+          <Button 
+            className={`w-full ${popular ? "bg-bite-600 hover:bg-bite-700" : ""}`}
+            onClick={handleSubscribe}
+          >
+            {buttonText}
+          </Button>
+        ) : tierLevel === "enterprise" || tierLevel === "franchise" ? (
+          <Button 
+            className={`w-full ${popular ? "bg-bite-600 hover:bg-bite-700" : ""}`}
+            onClick={handleSubscribe}
+          >
+            Contact Sales
+          </Button>
+        ) : (
+          <StripePaymentButton 
+            productName={`${title} Plan Subscription`}
+            amount={priceInCents}
+            buttonText={buttonText}
+          />
+        )}
       </CardFooter>
     </Card>
   );
@@ -87,6 +121,7 @@ export function Pricing() {
     {
       title: "Free Trial",
       price: "Free",
+      priceInCents: 0,
       description: "Try all features for 14 days",
       tierLevel: "free" as TierLevel,
       features: [
@@ -101,6 +136,7 @@ export function Pricing() {
     {
       title: "Growth",
       price: "$14.99",
+      priceInCents: 1499,
       description: "For new restaurants getting started",
       tierLevel: "growth" as TierLevel,
       features: [
@@ -119,6 +155,7 @@ export function Pricing() {
     {
       title: "Pro",
       price: "$109",
+      priceInCents: 10900,
       description: "For established restaurants",
       tierLevel: "pro" as TierLevel,
       features: [
@@ -137,6 +174,7 @@ export function Pricing() {
     {
       title: "Enterprise",
       price: "$599",
+      priceInCents: 59900,
       description: "For restaurant groups & chains",
       tierLevel: "enterprise" as TierLevel,
       features: [
@@ -155,6 +193,7 @@ export function Pricing() {
     {
       title: "Franchise",
       price: "$999",
+      priceInCents: 99900,
       description: "For restaurant franchises",
       tierLevel: "franchise" as TierLevel,
       features: [

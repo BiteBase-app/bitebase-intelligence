@@ -35,8 +35,8 @@ const App = () => (
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/restaurant-setup" element={<RestaurantSetup />} />
             <Route path="/integrations" element={<Integrations />} />
-            <Route path="/menu-analysis" element={<Dashboard />} /> {/* Temporary pointing to Dashboard */}
-            <Route path="/restaurants/:id" element={<Dashboard />} /> {/* Temporary pointing to Dashboard */}
+            <Route path="/payment-success" element={<Dashboard />} /> {/* Add payment success route */}
+            <Route path="/payment-canceled" element={<Dashboard />} /> {/* Add payment canceled route */}
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

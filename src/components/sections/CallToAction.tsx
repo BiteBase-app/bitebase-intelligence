@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Check } from "lucide-react";
+import { StripePaymentButton } from "@/components/StripePaymentButton";
 
 const features = [
   "Location analysis",
@@ -28,7 +29,7 @@ export function CallToAction() {
         </div>
         
         <div className="mx-auto mt-16 max-w-lg">
-          <Card className="shadow-lg shadow-bite-900/5 relative">
+          <Card className="shadow-lg shadow-bite-900/5 relative glass">
             <div className="absolute top-0 right-0 -translate-y-1/2 bg-bite-600 text-white px-4 py-1 rounded-full text-sm font-medium">
               Most Popular
             </div>
@@ -53,9 +54,12 @@ export function CallToAction() {
                 ))}
               </div>
               
-              <Button className="mt-8 w-full" size="lg">
-                Start Free Trial
-              </Button>
+              <StripePaymentButton
+                productName="Professional Plan"
+                amount={19900}
+                buttonText="Start Free Trial"
+                className="mt-8 w-full"
+              />
               <p className="mt-3 text-sm text-center text-muted-foreground">
                 No credit card required. 14-day free trial.
               </p>
