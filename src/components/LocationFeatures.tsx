@@ -1,6 +1,5 @@
 
 import { TierRestriction } from "@/components/TierRestriction";
-import { TierSelector } from "@/components/TierSelector";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPin, Users, TrendingUp, Building, Map } from "lucide-react";
 
@@ -73,9 +72,6 @@ export function LocationFeatures() {
           />
         </TierRestriction>
       </div>
-      
-      {/* Tier selector for demonstration */}
-      <TierSelector />
     </div>
   );
 }
@@ -88,7 +84,7 @@ interface FeatureCardProps {
 
 function FeatureCard({ title, description, icon: Icon }: FeatureCardProps) {
   return (
-    <Card>
+    <Card className="shadow-md border border-border">
       <CardHeader className="flex flex-row items-center gap-4 pb-2">
         <Icon className="h-8 w-8 text-bite-600" />
         <div>

@@ -1,3 +1,4 @@
+
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -343,7 +344,7 @@ const Location = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <Card className="shadow-sm border border-border">
+                  <Card className="shadow-md border border-border">
                     <CardContent className="p-4">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="h-10 w-10 rounded-full bg-bitebase-green-100 flex items-center justify-center">
@@ -358,7 +359,7 @@ const Location = () => {
                     </CardContent>
                   </Card>
                   
-                  <Card className="shadow-sm border border-border">
+                  <Card className="shadow-md border border-border">
                     <CardContent className="p-4">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="h-10 w-10 rounded-full bg-bitebase-green-100 flex items-center justify-center">
@@ -373,7 +374,7 @@ const Location = () => {
                     </CardContent>
                   </Card>
                   
-                  <Card className="shadow-sm border border-border">
+                  <Card className="shadow-md border border-border">
                     <CardContent className="p-4">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="h-10 w-10 rounded-full bg-bitebase-green-100 flex items-center justify-center">
