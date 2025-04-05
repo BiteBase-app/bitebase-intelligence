@@ -9,6 +9,7 @@ interface StripePaymentButtonProps {
   buttonText?: string;
   onSuccess?: () => void;
   disabled?: boolean;
+  className?: string; // Added className prop
 }
 
 export const StripePaymentButton = ({
@@ -16,7 +17,8 @@ export const StripePaymentButton = ({
   amount,
   buttonText = "Subscribe Now",
   onSuccess,
-  disabled = false
+  disabled = false,
+  className = "" // Added default value
 }: StripePaymentButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -70,7 +72,7 @@ export const StripePaymentButton = ({
     <Button 
       onClick={handlePayment} 
       disabled={isLoading || disabled}
-      className="w-full"
+      className={`w-full ${className}`}
     >
       {isLoading ? "Processing..." : buttonText}
     </Button>
