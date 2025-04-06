@@ -1,9 +1,8 @@
-
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronRightIcon, Buildings } from "lucide-react";
+import { ChevronRightIcon, Building } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import MapAnalysisStep from "@/components/MapAnalysisStep";
@@ -16,7 +15,7 @@ import SetupProgressSteps from "@/components/restaurant-setup/SetupProgressSteps
 import { validateBusinessType, validateBasicInfo, validateLocation, validateResearchGoals } from "@/utils/setupValidation";
 
 const steps = [
-  { id: "business-type", name: "Business Type", icon: <Buildings className="h-4 w-4" /> },
+  { id: "business-type", name: "Business Type", icon: <Building className="h-4 w-4" /> },
   { id: "basic-info", name: "Basic Info", icon: <ChevronRightIcon className="h-4 w-4" /> },
   { id: "location", name: "Location", icon: <ChevronRightIcon className="h-4 w-4" /> },
   { id: "map-analysis", name: "Map Analysis", icon: <ChevronRightIcon className="h-4 w-4" /> },
@@ -51,7 +50,6 @@ const RestaurantSetup = () => {
   };
 
   const handleNext = async () => {
-    // Validate current step
     if (currentStep === 0 && !validateBusinessType(businessType, toast)) {
       return;
     }
@@ -69,11 +67,8 @@ const RestaurantSetup = () => {
     }
 
     if (currentStep === steps.length - 1) {
-      // Submit data to database
       setIsSubmitting(true);
       try {
-        // In production, this would be an API call to save the restaurant profile
-        // Replace with your Supabase integration
         const response = await fetch('/api/restaurant-profiles', {
           method: 'POST',
           headers: {
@@ -114,7 +109,6 @@ const RestaurantSetup = () => {
     setCurrentStep((prev) => Math.max(0, prev - 1));
   };
 
-  // Render the appropriate step content based on currentStep
   const renderStepContent = () => {
     switch (currentStep) {
       case 0:
@@ -154,14 +148,11 @@ const RestaurantSetup = () => {
           <p className="text-muted-foreground">Let's set up your restaurant profile and research goals</p>
         </div>
 
-        {/* Progress Steps */}
         <SetupProgressSteps steps={steps} currentStep={currentStep} />
 
         <Card className="mt-12 shadow-md border border-border bg-card">
-          {/* Step Content */}
           {renderStepContent()}
 
-          {/* Footer */}
           <CardFooter className="flex justify-between border-t p-4">
             <Button
               variant="outline"
