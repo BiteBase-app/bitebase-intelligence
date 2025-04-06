@@ -62,7 +62,7 @@ const MapContainer = ({ formData, metrics }: MapContainerProps) => {
         
         {/* Map Controls */}
         <div className="absolute top-4 left-4 z-10">
-          <Card className="w-full max-w-xs shadow-md border border-border">
+          <Card className="shadow-md border border-border">
             <CardContent className="p-3 flex gap-2 flex-wrap">
               <Button variant="outline" size="sm">
                 <Layers className="h-4 w-4 mr-1" />
