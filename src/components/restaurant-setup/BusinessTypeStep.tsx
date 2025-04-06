@@ -1,9 +1,8 @@
 
-import { useState } from "react";
+import { Store, UtensilsCrossed } from "lucide-react";
 import { CardHeader, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Store } from "lucide-react";
 
 interface BusinessTypeStepProps {
   businessType: string;
@@ -23,7 +22,7 @@ const BusinessTypeStep = ({ businessType, setBusinessType }: BusinessTypeStepPro
         <RadioGroup
           value={businessType}
           onValueChange={setBusinessType}
-          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
         >
           <div>
             <RadioGroupItem
@@ -33,13 +32,15 @@ const BusinessTypeStep = ({ businessType, setBusinessType }: BusinessTypeStepPro
             />
             <Label
               htmlFor="new"
-              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-muted p-4 hover:bg-muted/80 peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
+              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-muted/20 p-6 hover:bg-muted/30 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/10 [&:has([data-state=checked])]:border-primary cursor-pointer shadow-sm transition-all"
             >
-              <Store className="mb-3 h-6 w-6" />
-              <span className="text-lg font-medium">New Restaurant</span>
-              <span className="text-sm text-muted-foreground">
-                I'm planning to open a new restaurant
-              </span>
+              <UtensilsCrossed className="mb-3 h-10 w-10 text-primary" />
+              <div className="text-center">
+                <span className="text-lg font-medium">New Restaurant</span>
+                <p className="text-sm text-muted-foreground mt-1">
+                  I'm planning to open a new restaurant
+                </p>
+              </div>
             </Label>
           </div>
           <div>
@@ -50,13 +51,15 @@ const BusinessTypeStep = ({ businessType, setBusinessType }: BusinessTypeStepPro
             />
             <Label
               htmlFor="existing"
-              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-muted p-4 hover:bg-muted/80 peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
+              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-muted/20 p-6 hover:bg-muted/30 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/10 [&:has([data-state=checked])]:border-primary cursor-pointer shadow-sm transition-all"
             >
-              <Store className="mb-3 h-6 w-6" />
-              <span className="text-lg font-medium">Existing Restaurant</span>
-              <span className="text-sm text-muted-foreground">
-                I already own a restaurant
-              </span>
+              <Store className="mb-3 h-10 w-10 text-primary" />
+              <div className="text-center">
+                <span className="text-lg font-medium">Existing Restaurant</span>
+                <p className="text-sm text-muted-foreground mt-1">
+                  I already own a restaurant
+                </p>
+              </div>
             </Label>
           </div>
         </RadioGroup>

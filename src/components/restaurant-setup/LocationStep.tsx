@@ -3,6 +3,7 @@ import { CardHeader, CardContent, CardDescription, CardTitle } from "@/component
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { MapPin } from "lucide-react";
 
 interface LocationStepProps {
   formData: {
@@ -18,12 +19,24 @@ const LocationStep = ({ formData, updateFormData }: LocationStepProps) => {
   return (
     <>
       <CardHeader>
-        <CardTitle>Restaurant Location</CardTitle>
+        <div className="flex items-center space-x-2">
+          <MapPin className="h-5 w-5 text-primary" />
+          <CardTitle>Restaurant Location</CardTitle>
+        </div>
         <CardDescription>
           Enter the location details for your restaurant
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-6">
+        <div className="p-4 bg-muted/30 rounded-lg border border-border shadow-sm">
+          <p className="text-sm mb-2 font-medium">Why location matters:</p>
+          <ul className="text-xs text-muted-foreground space-y-1">
+            <li>• Determines your target demographic and customer base</li>
+            <li>• Affects visibility and foot traffic potential</li>
+            <li>• Influences your competition analysis</li>
+          </ul>
+        </div>
+        
         <div className="space-y-2">
           <Label htmlFor="streetAddress">Street Address</Label>
           <Input
@@ -31,6 +44,7 @@ const LocationStep = ({ formData, updateFormData }: LocationStepProps) => {
             placeholder="123 Main St"
             value={formData.streetAddress}
             onChange={(e) => updateFormData("streetAddress", e.target.value)}
+            className="shadow-sm"
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
@@ -41,12 +55,16 @@ const LocationStep = ({ formData, updateFormData }: LocationStepProps) => {
               placeholder="City"
               value={formData.city}
               onChange={(e) => updateFormData("city", e.target.value)}
+              className="shadow-sm"
             />
           </div>
           <div className="space-y-2">
             <Label htmlFor="state">State</Label>
-            <Select onValueChange={(value) => updateFormData("state", value)}>
-              <SelectTrigger id="state">
+            <Select 
+              value={formData.state} 
+              onValueChange={(value) => updateFormData("state", value)}
+            >
+              <SelectTrigger id="state" className="shadow-sm">
                 <SelectValue placeholder="Select state" />
               </SelectTrigger>
               <SelectContent>
@@ -67,6 +85,7 @@ const LocationStep = ({ formData, updateFormData }: LocationStepProps) => {
             placeholder="ZIP Code"
             value={formData.zipCode}
             onChange={(e) => updateFormData("zipCode", e.target.value)}
+            className="shadow-sm"
           />
         </div>
       </CardContent>

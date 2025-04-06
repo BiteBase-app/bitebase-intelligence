@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronRightIcon } from "lucide-react";
+import { ChevronRightIcon, Buildings } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import MapAnalysisStep from "@/components/MapAnalysisStep";
@@ -16,12 +16,12 @@ import SetupProgressSteps from "@/components/restaurant-setup/SetupProgressSteps
 import { validateBusinessType, validateBasicInfo, validateLocation, validateResearchGoals } from "@/utils/setupValidation";
 
 const steps = [
-  { id: "business-type", name: "Business Type" },
-  { id: "basic-info", name: "Basic Info" },
-  { id: "location", name: "Location" },
-  { id: "map-analysis", name: "Map Analysis" },
-  { id: "research-goals", name: "Research Goals" },
-  { id: "summary", name: "Summary" },
+  { id: "business-type", name: "Business Type", icon: <Buildings className="h-4 w-4" /> },
+  { id: "basic-info", name: "Basic Info", icon: <ChevronRightIcon className="h-4 w-4" /> },
+  { id: "location", name: "Location", icon: <ChevronRightIcon className="h-4 w-4" /> },
+  { id: "map-analysis", name: "Map Analysis", icon: <ChevronRightIcon className="h-4 w-4" /> },
+  { id: "research-goals", name: "Research Goals", icon: <ChevronRightIcon className="h-4 w-4" /> },
+  { id: "summary", name: "Summary", icon: <ChevronRightIcon className="h-4 w-4" /> },
 ];
 
 const RestaurantSetup = () => {
@@ -157,7 +157,7 @@ const RestaurantSetup = () => {
         {/* Progress Steps */}
         <SetupProgressSteps steps={steps} currentStep={currentStep} />
 
-        <Card className="mt-12 glass">
+        <Card className="mt-12 shadow-md border border-border bg-card">
           {/* Step Content */}
           {renderStepContent()}
 
@@ -167,14 +167,14 @@ const RestaurantSetup = () => {
               variant="outline"
               onClick={handleBack}
               disabled={currentStep === 0}
-              className="glass-button"
+              className="shadow-sm"
             >
               Back
             </Button>
             <Button 
               onClick={handleNext}
               disabled={isSubmitting}
-              className="glass-button"
+              className="shadow-sm"
             >
               {currentStep === steps.length - 1 ? (
                 isSubmitting ? "Saving..." : "Complete Setup"
