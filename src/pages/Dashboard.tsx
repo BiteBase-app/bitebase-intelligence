@@ -1,4 +1,3 @@
-
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -36,7 +35,8 @@ import {
   UserCheck,
   Check,
   AlertTriangle,
-  LightbulbIcon
+  LightbulbIcon,
+  X
 } from "lucide-react";
 import { GradientHeading } from "@/components/ui/gradient-heading";
 import { Badge } from "@/components/ui/badge";
@@ -57,11 +57,10 @@ import { useTier } from "@/contexts/TierContext";
 
 const Dashboard = () => {
   const { toast } = useToast();
+  const { currentTier } = useTier();
   const [activeTab, setActiveTab] = useState("overview");
-  const { tier } = useTier();
   const [showAiAssistant, setShowAiAssistant] = useState(false);
 
-  // Sample data
   const restaurants = [
     { 
       id: 1, 
@@ -219,7 +218,6 @@ const Dashboard = () => {
   return (
     <Layout>
       <div className="container py-6">
-        {/* Dashboard Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
           <div>
             <div className="flex items-center gap-2">
@@ -240,7 +238,6 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Metrics Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card>
             <CardContent className="p-6">
@@ -333,7 +330,6 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <Card>
             <CardHeader className="pb-2">
@@ -347,7 +343,7 @@ const Dashboard = () => {
               <CardDescription>Performance over the last 6 months</CardDescription>
             </CardHeader>
             <CardContent className="h-[300px] pt-4">
-              <TierRestriction tier="free" checkTier="pro">
+              <TierRestriction requiredTier="pro">
                 <div className="h-full w-full flex items-center justify-center border border-dashed rounded-md bg-muted/50">
                   <div className="text-center">
                     <LineChart className="h-10 w-10 mx-auto mb-2 text-muted-foreground" />
@@ -362,7 +358,7 @@ const Dashboard = () => {
                 </div>
               </TierRestriction>
               
-              <TierRestriction tier="pro">
+              <TierRestriction requiredTier="pro">
                 <div className="h-full w-full bg-card overflow-hidden rounded-md">
                   <div className="relative h-full w-full">
                     <div className="absolute inset-0 flex flex-col">
@@ -460,9 +456,7 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        {/* Location Insights */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {/* Top Locations */}
           <Card className="lg:col-span-2">
             <CardHeader className="pb-2">
               <div className="flex justify-between items-center">
@@ -511,7 +505,6 @@ const Dashboard = () => {
             </CardContent>
           </Card>
           
-          {/* Quick Analysis */}
           <Card>
             <CardHeader className="pb-2">
               <CardTitle>Quick Analysis</CardTitle>
@@ -545,7 +538,6 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        {/* Recent Activity */}
         <Card className="mb-6">
           <CardHeader className="pb-2">
             <div className="flex justify-between items-center">
@@ -579,7 +571,6 @@ const Dashboard = () => {
         </Card>
       </div>
 
-      {/* AI Assistant Button */}
       <div className="fixed bottom-6 right-6">
         <Button 
           size="icon" 
@@ -590,7 +581,6 @@ const Dashboard = () => {
         </Button>
       </div>
 
-      {/* AI Assistant Panel */}
       {showAiAssistant && (
         <div className="fixed bottom-24 right-6 w-80 bg-white rounded-xl shadow-xl z-50 border border-border overflow-hidden">
           <div className="p-4 bg-primary text-white flex justify-between items-center">
