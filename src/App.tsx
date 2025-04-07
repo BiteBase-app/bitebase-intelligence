@@ -16,6 +16,7 @@ import NotFound from "./pages/NotFound";
 import Onboarding from "./pages/Onboarding";
 import RestaurantSetup from "./pages/RestaurantSetup";
 import Integrations from "./pages/Integrations";
+import CompetitiveAnalysis from "./pages/CompetitiveAnalysis"; // Add the new import
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,7 @@ const App = () => (
               <Route path="/onboarding" element={<Onboarding />} />
               <Route path="/restaurant-setup" element={<RestaurantSetup />} />
               <Route path="/integrations" element={<Integrations />} />
+              <Route path="/competitive-analysis" element={<CompetitiveAnalysis />} /> {/* Add the new route */}
               <Route path="/payment-success" element={<Dashboard />} /> {/* Add payment success route */}
               <Route path="/payment-canceled" element={<Dashboard />} /> {/* Add payment canceled route */}
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, BarChart2, Search, MapPin, Users } from "lucide-react";
+import { BarChart2, Search, MapPin, Users, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +12,7 @@ export function Navbar() {
     { name: "Dashboard", href: "/dashboard", icon: BarChart2 },
     { name: "Market Research", href: "/research", icon: Search },
     { name: "Location Analysis", href: "/location", icon: MapPin },
+    { name: "Competitive Analysis", href: "/competitive-analysis", icon: UserPlus }, // Add new nav item
     { name: "Consumer Insights", href: "/insights", icon: Users },
   ];
 
