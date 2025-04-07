@@ -1,4 +1,3 @@
-
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -139,7 +138,7 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Import and use other sections */}
+      {/* Features Section Header */}
       <section id="features">
         <div className="py-16 bg-gray-50">
           <div className="container mx-auto px-4 text-center mb-12">
