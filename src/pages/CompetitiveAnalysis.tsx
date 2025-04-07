@@ -217,7 +217,7 @@ const CompetitiveAnalysis = () => {
         </Card>
 
         {/* Charts Section */}
-        <TierRestriction requiredTier="premium">
+        <TierRestriction requiredTier="pro">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
             {/* Market Share Chart */}
             <Card>
@@ -389,7 +389,7 @@ const CompetitiveAnalysis = () => {
         </Card>
 
         {/* Competitive Benchmarking */}
-        <TierRestriction requiredTier="premium">
+        <TierRestriction requiredTier="pro">
           <Card className="mb-6">
             <CardHeader className="pb-2">
               <div className="flex justify-between items-center">

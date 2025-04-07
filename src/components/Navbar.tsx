@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { BarChart2, Search, MapPin, Users, UserPlus } from "lucide-react";
+import { BarChart2, Search, MapPin, Users, UserPlus, X, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
