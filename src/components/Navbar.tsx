@@ -12,7 +12,7 @@ export function Navbar() {
     { name: "Dashboard", href: "/dashboard", icon: BarChart2 },
     { name: "Market Research", href: "/research", icon: Search },
     { name: "Location Analysis", href: "/location", icon: MapPin },
-    { name: "Competitive Analysis", href: "/competitive-analysis", icon: UserPlus }, // Add new nav item
+    { name: "Competitive Analysis", href: "/competitive-analysis", icon: UserPlus },
     { name: "Consumer Insights", href: "/insights", icon: Users },
   ];
 
