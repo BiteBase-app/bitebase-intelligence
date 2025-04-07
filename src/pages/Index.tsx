@@ -15,6 +15,12 @@ import {
   Store, 
   Users 
 } from "lucide-react";
+import { BenefitsSection } from "@/components/sections/BenefitsSection";
+import { Pricing } from "@/components/sections/Pricing";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { FaqSection } from "@/components/sections/FaqSection";
+import { CallToAction } from "@/components/sections/CallToAction";
+import { Features } from "@/components/sections/Features";
 
 const Index = () => {
   return (
@@ -145,6 +151,8 @@ const Index = () => {
           </div>
         </div>
       </section>
+      
+      <Features />
       
       {/* Demo Video Section */}
       <section id="demo" className="py-16 bg-gray-50">
