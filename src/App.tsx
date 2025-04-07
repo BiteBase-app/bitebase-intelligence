@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { TierProvider } from "@/contexts/TierContext";
+import { TestUserProvider } from "@/contexts/TestUserContext";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Research from "./pages/Research";
@@ -22,25 +23,27 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <TierProvider initialTier="free">
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/research" element={<Research />} />
-            <Route path="/location" element={<Location />} />
-            <Route path="/insights" element={<Insights />} />
-            <Route path="/merge" element={<Merge />} />
-            <Route path="/onboarding" element={<Onboarding />} />
-            <Route path="/restaurant-setup" element={<RestaurantSetup />} />
-            <Route path="/integrations" element={<Integrations />} />
-            <Route path="/payment-success" element={<Dashboard />} /> {/* Add payment success route */}
-            <Route path="/payment-canceled" element={<Dashboard />} /> {/* Add payment canceled route */}
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <TestUserProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/research" element={<Research />} />
+              <Route path="/location" element={<Location />} />
+              <Route path="/insights" element={<Insights />} />
+              <Route path="/merge" element={<Merge />} />
+              <Route path="/onboarding" element={<Onboarding />} />
+              <Route path="/restaurant-setup" element={<RestaurantSetup />} />
+              <Route path="/integrations" element={<Integrations />} />
+              <Route path="/payment-success" element={<Dashboard />} /> {/* Add payment success route */}
+              <Route path="/payment-canceled" element={<Dashboard />} /> {/* Add payment canceled route */}
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TestUserProvider>
       </TierProvider>
     </TooltipProvider>
   </QueryClientProvider>

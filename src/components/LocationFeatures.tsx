@@ -2,10 +2,14 @@
 import { TierRestriction } from "@/components/TierRestriction";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPin, Users, TrendingUp, Building, Map } from "lucide-react";
+import { TestUserToggle } from "@/components/TestUserToggle";
 
 export function LocationFeatures() {
   return (
     <div className="space-y-10">
+      {/* Add TestUserToggle at the top */}
+      <TestUserToggle />
+      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Feature available to all tiers */}
         <TierRestriction requiredTier="free">
