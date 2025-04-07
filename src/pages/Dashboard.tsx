@@ -22,7 +22,21 @@ import {
   Coffee,
   ShoppingBag,
   ChevronRight,
-  Building
+  Building,
+  PieChart,
+  BarChartHorizontal,
+  Bell,
+  ChevronDown,
+  User,
+  Wallet,
+  ArrowUp,
+  ArrowDown,
+  Store,
+  Receipt,
+  UserCheck,
+  Check,
+  AlertTriangle,
+  LightbulbIcon
 } from "lucide-react";
 import { GradientHeading } from "@/components/ui/gradient-heading";
 import { Badge } from "@/components/ui/badge";
@@ -31,11 +45,21 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { TestUserToggle } from "@/components/TestUserToggle";
+import { TierRestriction } from "@/components/TierRestriction";
+import { useTier } from "@/contexts/TierContext";
 
 const Dashboard = () => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("overview");
+  const { tier } = useTier();
+  const [showAiAssistant, setShowAiAssistant] = useState(false);
 
   // Sample data
   const restaurants = [
@@ -96,6 +120,95 @@ const Dashboard = () => {
     }
   ];
 
+  const topLocations = [
+    {
+      rank: 1,
+      name: "Downtown West",
+      score: 92,
+      competitors: 8,
+      rent: "$4,200/mo"
+    },
+    {
+      rank: 2,
+      name: "Riverside District",
+      score: 88,
+      competitors: 6,
+      rent: "$3,800/mo"
+    },
+    {
+      rank: 3,
+      name: "Northside Plaza",
+      score: 85,
+      competitors: 10,
+      rent: "$3,500/mo"
+    },
+    {
+      rank: 4,
+      name: "South Market",
+      score: 83,
+      competitors: 12,
+      rent: "$3,200/mo"
+    },
+    {
+      rank: 5,
+      name: "East Village",
+      score: 81,
+      competitors: 9,
+      rent: "$4,000/mo"
+    }
+  ];
+
+  const quickAnalysis = [
+    {
+      title: "Cuisine Opportunity",
+      description: "Your area has high demand for Mediterranean cuisine with limited competition.",
+      score: 78,
+      level: "High",
+      icon: <Utensils className="h-4 w-4 text-yellow-500" />
+    },
+    {
+      title: "Price Positioning",
+      description: "Area can support premium pricing with 15% higher than current average.",
+      score: 65,
+      level: "Moderate",
+      icon: <DollarSign className="h-4 w-4 text-green-500" />
+    },
+    {
+      title: "Peak Hours",
+      description: "Highest foot traffic occurs between 6-8PM on weekends.",
+      score: 92,
+      level: "Very High",
+      icon: <Clock className="h-4 w-4 text-red-500" />
+    }
+  ];
+
+  const recentActivity = [
+    {
+      title: "Analysis Completed",
+      description: "Market potential analysis for Downtown West location is ready",
+      time: "10 min ago",
+      icon: <Check className="h-4 w-4 text-green-500" />
+    },
+    {
+      title: "New Competitor Alert",
+      description: '"Mediterranean Bistro" opened in your target area with 4.8★ rating',
+      time: "45 min ago",
+      icon: <Bell className="h-4 w-4 text-blue-500" />
+    },
+    {
+      title: "Trend Identified",
+      description: "Increased demand for plant-based options in your area (up 22% YoY)",
+      time: "2 hours ago",
+      icon: <TrendingUp className="h-4 w-4 text-purple-500" />
+    },
+    {
+      title: "Menu Recommendation",
+      description: "AI suggests adding falafel wrap based on competitor gaps",
+      time: "4 hours ago",
+      icon: <LightbulbIcon className="h-4 w-4 text-yellow-500" />
+    }
+  ];
+
   const handleCreateReport = () => {
     toast({
       title: "Creating new report",
@@ -110,8 +223,8 @@ const Dashboard = () => {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-3xl font-bold">Dashboard</h1>
-              <Badge variant="outline" className="bg-bitebase-green-50 text-bitebase-green-700 border-bitebase-green-200">Pro Plan</Badge>
+              <h1 className="text-3xl font-bold">Restaurant Intelligence Dashboard</h1>
+              <TestUserToggle />
             </div>
             <p className="text-muted-foreground mt-1">Welcome back to your restaurant intelligence platform</p>
           </div>
@@ -129,16 +242,43 @@ const Dashboard = () => {
 
         {/* Metrics Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-gradient-to-br from-bitebase-green-500 to-bitebase-green-600 text-white">
+          <Card>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-white/80">Location Score</p>
-                  <h3 className="text-3xl font-bold mt-1">92/100</h3>
-                  <p className="text-sm mt-2 text-white/90">Top 5% in your area</p>
+                  <p className="text-sm font-medium text-muted-foreground">Market Potential</p>
+                  <h3 className="text-2xl font-bold mt-1">87/100</h3>
+                  <p className="text-sm mt-2 flex items-center text-green-600">
+                    <ArrowUp className="h-3 w-3 mr-1" /> 8.2% vs last month
+                  </p>
                 </div>
-                <div className="h-12 w-12 bg-white/20 rounded-lg flex items-center justify-center">
-                  <MapPin className="h-6 w-6" />
+                <div className="h-12 w-12 bg-green-100 rounded-lg flex items-center justify-center">
+                  <BarChart2 className="h-6 w-6 text-green-600" />
+                </div>
+              </div>
+              <Progress value={87} className="h-2 mt-4" />
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Competitor Density</p>
+                  <h3 className="text-2xl font-bold mt-1">12</h3>
+                  <p className="text-sm mt-2 flex items-center text-red-600">
+                    <ArrowDown className="h-3 w-3 mr-1" /> 3.4% vs last quarter
+                  </p>
+                </div>
+                <div className="h-12 w-12 bg-red-100 rounded-lg flex items-center justify-center">
+                  <Store className="h-6 w-6 text-red-600" />
+                </div>
+              </div>
+              <div className="mt-4">
+                <Progress value={60} className="h-2" />
+                <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                  <span>Low</span>
+                  <span>High</span>
                 </div>
               </div>
             </CardContent>
@@ -148,13 +288,22 @@ const Dashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">Nearby Competitors</p>
-                  <h3 className="text-3xl font-bold mt-1">8</h3>
-                  <p className="text-sm mt-2 text-muted-foreground">Within 2 mile radius</p>
+                  <p className="text-sm font-medium text-muted-foreground">Avg. Check (Area)</p>
+                  <h3 className="text-2xl font-bold mt-1">$28.50</h3>
+                  <p className="text-sm mt-2 flex items-center text-green-600">
+                    <ArrowUp className="h-3 w-3 mr-1" /> 5.1% vs last year
+                  </p>
                 </div>
-                <div className="h-12 w-12 bg-bitebase-green-100 rounded-lg flex items-center justify-center text-bitebase-green-600">
-                  <Building className="h-6 w-6" />
+                <div className="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <Receipt className="h-6 w-6 text-blue-600" />
                 </div>
+              </div>
+              <div className="mt-4 flex items-center text-xs text-muted-foreground">
+                <span>$15</span>
+                <div className="flex-1 mx-2">
+                  <Progress value={70} className="h-2" />
+                </div>
+                <span>$40</span>
               </div>
             </CardContent>
           </Card>
@@ -163,833 +312,335 @@ const Dashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">Market Growth</p>
-                  <h3 className="text-3xl font-bold mt-1">+12.4%</h3>
-                  <p className="text-sm mt-2 text-muted-foreground">Year over year</p>
+                  <p className="text-sm font-medium text-muted-foreground">Daily Foot Traffic</p>
+                  <h3 className="text-2xl font-bold mt-1">1,240</h3>
+                  <p className="text-sm mt-2 flex items-center text-green-600">
+                    <ArrowUp className="h-3 w-3 mr-1" /> 12.7% vs last week
+                  </p>
                 </div>
-                <div className="h-12 w-12 bg-bitebase-green-100 rounded-lg flex items-center justify-center text-bitebase-green-600">
-                  <TrendingUp className="h-6 w-6" />
+                <div className="h-12 w-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                  <Users className="h-6 w-6 text-purple-600" />
                 </div>
               </div>
+              <div className="mt-4 flex items-center text-xs text-muted-foreground">
+                <span>500</span>
+                <div className="flex-1 mx-2">
+                  <Progress value={80} className="h-2" />
+                </div>
+                <span>2,000</span>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Charts Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <Card>
+            <CardHeader className="pb-2">
+              <div className="flex justify-between items-center">
+                <CardTitle>Market Potential Trend</CardTitle>
+                <div className="flex space-x-2">
+                  <Badge variant="secondary">Monthly</Badge>
+                  <Badge variant="outline">Quarterly</Badge>
+                </div>
+              </div>
+              <CardDescription>Performance over the last 6 months</CardDescription>
+            </CardHeader>
+            <CardContent className="h-[300px] pt-4">
+              <TierRestriction tier="free" checkTier="pro">
+                <div className="h-full w-full flex items-center justify-center border border-dashed rounded-md bg-muted/50">
+                  <div className="text-center">
+                    <LineChart className="h-10 w-10 mx-auto mb-2 text-muted-foreground" />
+                    <p className="text-muted-foreground">Market trend chart is available on Pro plan</p>
+                    <Button size="sm" variant="outline" className="mt-4">
+                      Upgrade to Pro
+                    </Button>
+                  </div>
+                </div>
+                <div className="sr-only">
+                  Market trend shows an increase from 72 points in January to 87 points in June, with consistent monthly growth
+                </div>
+              </TierRestriction>
+              
+              <TierRestriction tier="pro">
+                <div className="h-full w-full bg-card overflow-hidden rounded-md">
+                  <div className="relative h-full w-full">
+                    <div className="absolute inset-0 flex flex-col">
+                      <div className="flex-1 border-b border-border/20"></div>
+                      <div className="flex-1 border-b border-border/20"></div>
+                      <div className="flex-1 border-b border-border/20"></div>
+                      <div className="flex-1 border-b border-border/20"></div>
+                      <div className="flex-1"></div>
+                    </div>
+                    
+                    <div className="absolute bottom-0 inset-x-0 h-[60%] bg-gradient-to-t from-green-500/10 to-transparent"></div>
+                    
+                    <div className="absolute bottom-0 inset-x-0 h-[80%] flex items-end">
+                      <div className="flex-1 h-[40%] bg-gradient-to-t from-green-500 to-green-500/80 rounded-tl-md"></div>
+                      <div className="flex-1 h-[50%] bg-gradient-to-t from-green-500 to-green-500/80"></div>
+                      <div className="flex-1 h-[60%] bg-gradient-to-t from-green-500 to-green-500/80"></div>
+                      <div className="flex-1 h-[75%] bg-gradient-to-t from-green-500 to-green-500/80"></div>
+                      <div className="flex-1 h-[85%] bg-gradient-to-t from-green-500 to-green-500/80"></div>
+                      <div className="flex-1 h-[90%] bg-gradient-to-t from-green-500 to-green-500/80 rounded-tr-md"></div>
+                    </div>
+                    
+                    <div className="absolute bottom-0 inset-x-0 flex justify-between text-xs text-muted-foreground px-2 pb-2">
+                      <span>Jan</span>
+                      <span>Feb</span>
+                      <span>Mar</span>
+                      <span>Apr</span>
+                      <span>May</span>
+                      <span>Jun</span>
+                    </div>
+                    
+                    <div className="absolute top-2 left-2 flex items-center text-sm">
+                      <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                      <span>Market Score: 87/100</span>
+                    </div>
+                  </div>
+                </div>
+              </TierRestriction>
             </CardContent>
           </Card>
           
           <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Revenue Potential</p>
-                  <h3 className="text-3xl font-bold mt-1">$42K</h3>
-                  <p className="text-sm mt-2 text-muted-foreground">Monthly estimate</p>
+            <CardHeader className="pb-2">
+              <div className="flex justify-between items-center">
+                <CardTitle>Competitor Comparison</CardTitle>
+                <div className="flex space-x-2">
+                  <Badge variant="destructive">By Rating</Badge>
+                  <Badge variant="outline">By Price</Badge>
                 </div>
-                <div className="h-12 w-12 bg-bitebase-green-100 rounded-lg flex items-center justify-center text-bitebase-green-600">
-                  <DollarSign className="h-6 w-6" />
+              </div>
+              <CardDescription>Businesses within 1 mile radius</CardDescription>
+            </CardHeader>
+            <CardContent className="h-[300px] pt-4">
+              <div className="h-full w-full bg-card overflow-hidden rounded-md">
+                <div className="relative h-full w-full">
+                  <div className="absolute inset-0 p-4 flex flex-col justify-center space-y-6">
+                    <div className="flex items-center">
+                      <span className="w-24 text-sm">Your Concept</span>
+                      <div className="flex-1 h-8 bg-green-100 rounded overflow-hidden flex items-center">
+                        <div className="h-full bg-green-500 rounded w-[90%]"></div>
+                        <span className="text-xs ml-2">4.5★</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="w-24 text-sm">Bistro 42</span>
+                      <div className="flex-1 h-8 bg-green-100 rounded overflow-hidden flex items-center">
+                        <div className="h-full bg-red-500 rounded w-[96%]"></div>
+                        <span className="text-xs ml-2">4.8★</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="w-24 text-sm">Cafe Luna</span>
+                      <div className="flex-1 h-8 bg-green-100 rounded overflow-hidden flex items-center">
+                        <div className="h-full bg-red-500 rounded w-[86%]"></div>
+                        <span className="text-xs ml-2">4.3★</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="w-24 text-sm">Green Fork</span>
+                      <div className="flex-1 h-8 bg-green-100 rounded overflow-hidden flex items-center">
+                        <div className="h-full bg-red-500 rounded w-[92%]"></div>
+                        <span className="text-xs ml-2">4.6★</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="w-24 text-sm">Urban Eats</span>
+                      <div className="flex-1 h-8 bg-green-100 rounded overflow-hidden flex items-center">
+                        <div className="h-full bg-red-500 rounded w-[84%]"></div>
+                        <span className="text-xs ml-2">4.2★</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Main Dashboard Content */}
+        {/* Location Insights */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {/* Left Column - Main Insights */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Tabs for different dashboard views */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle>Market Insights</CardTitle>
-                <CardDescription>
-                  Comprehensive analysis of your restaurant's market position
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Tabs defaultValue="overview" onValueChange={setActiveTab} className="mt-2">
-                  <TabsList className="mb-4">
-                    <TabsTrigger value="overview">Overview</TabsTrigger>
-                    <TabsTrigger value="customers">Customers</TabsTrigger>
-                    <TabsTrigger value="competitors">Competitors</TabsTrigger>
-                    <TabsTrigger value="trends">Trends</TabsTrigger>
-                  </TabsList>
-                  
-                  <TabsContent value="overview" className="mt-0">
-                    <div className="space-y-6">
-                      {/* Market opportunity score */}
-                      <div>
-                        <h4 className="text-sm font-medium mb-2">Market Opportunity Score</h4>
-                        <div className="relative pt-1">
-                          <div className="flex items-center justify-between mb-1">
-                            <div>
-                              <span className="text-xs font-semibold inline-block text-bitebase-green-600">
-                                87/100
-                              </span>
-                            </div>
-                            <div>
-                              <span className="text-xs font-semibold inline-block text-bitebase-green-600">
-                                Very Good
-                              </span>
-                            </div>
+          {/* Top Locations */}
+          <Card className="lg:col-span-2">
+            <CardHeader className="pb-2">
+              <div className="flex justify-between items-center">
+                <CardTitle>Top Recommended Locations</CardTitle>
+                <Button variant="ghost" size="sm">
+                  <ArrowDown className="h-4 w-4 mr-2" /> Export
+                </Button>
+              </div>
+              <CardDescription>
+                Ranked by market potential score
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left p-4 text-sm font-medium text-muted-foreground">Rank</th>
+                      <th className="text-left p-4 text-sm font-medium text-muted-foreground">Location</th>
+                      <th className="text-left p-4 text-sm font-medium text-muted-foreground">Market Score</th>
+                      <th className="text-left p-4 text-sm font-medium text-muted-foreground">Competition</th>
+                      <th className="text-left p-4 text-sm font-medium text-muted-foreground">Avg. Rent</th>
+                      <th className="text-left p-4 text-sm font-medium text-muted-foreground">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {topLocations.map((location) => (
+                      <tr key={location.rank} className="border-b border-border hover:bg-muted/50">
+                        <td className="p-4">
+                          <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white ${location.rank === 1 ? 'bg-green-500' : location.rank === 2 ? 'bg-red-500' : location.rank === 3 ? 'bg-yellow-500' : 'bg-gray-300'}`}>
+                            {location.rank}
                           </div>
-                          <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-bitebase-green-200">
-                            <div style={{ width: "87%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-bitebase-green-500"></div>
-                          </div>
-                        </div>
-                        
-                        <div className="grid grid-cols-2 gap-4 mt-4">
-                          <div>
-                            <div className="flex justify-between text-sm mb-1">
-                              <span>Market Size</span>
-                              <span className="font-medium">Very Large</span>
-                            </div>
-                            <div className="overflow-hidden h-1.5 text-xs flex rounded bg-bitebase-green-200">
-                              <div style={{ width: "95%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-bitebase-green-400"></div>
-                            </div>
-                          </div>
-                          
-                          <div>
-                            <div className="flex justify-between text-sm mb-1">
-                              <span>Competition Level</span>
-                              <span className="font-medium">Moderate</span>
-                            </div>
-                            <div className="overflow-hidden h-1.5 text-xs flex rounded bg-bitebase-green-200">
-                              <div style={{ width: "60%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-bitebase-green-400"></div>
-                            </div>
-                          </div>
-                          
-                          <div>
-                            <div className="flex justify-between text-sm mb-1">
-                              <span>Growth Potential</span>
-                              <span className="font-medium">High</span>
-                            </div>
-                            <div className="overflow-hidden h-1.5 text-xs flex rounded bg-bitebase-green-200">
-                              <div style={{ width: "80%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-bitebase-green-400"></div>
-                            </div>
-                          </div>
-                          
-                          <div>
-                            <div className="flex justify-between text-sm mb-1">
-                              <span>Concept Fit</span>
-                              <span className="font-medium">Excellent</span>
-                            </div>
-                            <div className="overflow-hidden h-1.5 text-xs flex rounded bg-bitebase-green-200">
-                              <div style={{ width: "90%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-bitebase-green-400"></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Revenue forecast visualization */}
-                      <div>
-                        <h4 className="text-sm font-medium mb-2">Revenue Forecast</h4>
-                        <div className="h-64 flex items-end space-x-1">
-                          {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map((month, index) => {
-                            const height = 30 + Math.random() * 70;
-                            return (
-                              <div key={month} className="flex flex-col items-center flex-1">
-                                <div 
-                                  className="w-full bg-bitebase-green-500 rounded-t-sm" 
-                                  style={{ height: `${height}%`, opacity: 0.2 + (height / 125) }}
-                                ></div>
-                                <span className="text-xs text-muted-foreground mt-2">{month}</span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="customers" className="mt-0">
-                    <div className="space-y-6">
-                      <div>
-                        <h4 className="text-sm font-medium mb-2">Age Distribution</h4>
-                        <div className="grid grid-cols-5 gap-2 h-32 items-end">
-                          <div className="flex flex-col items-center">
-                            <div className="w-full bg-bitebase-green-300 rounded-t-sm" style={{ height: "30%" }}></div>
-                            <span className="text-xs text-muted-foreground mt-2">18-24</span>
-                          </div>
-                          <div className="flex flex-col items-center">
-                            <div className="w-full bg-bitebase-green-400 rounded-t-sm" style={{ height: "75%" }}></div>
-                            <span className="text-xs text-muted-foreground mt-2">25-34</span>
-                          </div>
-                          <div className="flex flex-col items-center">
-                            <div className="w-full bg-bitebase-green-500 rounded-t-sm" style={{ height: "90%" }}></div>
-                            <span className="text-xs text-muted-foreground mt-2">35-44</span>
-                          </div>
-                          <div className="flex flex-col items-center">
-                            <div className="w-full bg-bitebase-green-400 rounded-t-sm" style={{ height: "60%" }}></div>
-                            <span className="text-xs text-muted-foreground mt-2">45-54</span>
-                          </div>
-                          <div className="flex flex-col items-center">
-                            <div className="w-full bg-bitebase-green-300 rounded-t-sm" style={{ height: "25%" }}></div>
-                            <span className="text-xs text-muted-foreground mt-2">55+</span>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <h4 className="text-sm font-medium mb-2">Income Level</h4>
-                        <div className="grid grid-cols-4 gap-2 h-24 items-end">
-                          <div className="flex flex-col items-center">
-                            <div className="w-full bg-bitebase-green-300 rounded-t-sm" style={{ height: "30%" }}></div>
-                            <span className="text-xs text-muted-foreground mt-2">Low</span>
-                          </div>
-                          <div className="flex flex-col items-center">
-                            <div className="w-full bg-bitebase-green-400 rounded-t-sm" style={{ height: "50%" }}></div>
-                            <span className="text-xs text-muted-foreground mt-2">Medium</span>
-                          </div>
-                          <div className="flex flex-col items-center">
-                            <div className="w-full bg-bitebase-green-500 rounded-t-sm" style={{ height: "100%" }}></div>
-                            <span className="text-xs text-muted-foreground mt-2">High</span>
-                          </div>
-                          <div className="flex flex-col items-center">
-                            <div className="w-full bg-bitebase-green-300 rounded-t-sm" style={{ height: "40%" }}></div>
-                            <span className="text-xs text-muted-foreground mt-2">Very High</span>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <h4 className="text-sm font-medium mb-2">Customer Segments</h4>
-                        <div className="grid grid-cols-2 gap-4">
-                          <Card className="border-bitebase-green-100">
-                            <CardContent className="p-4">
-                              <div className="flex items-center gap-3">
-                                <div className="h-10 w-10 rounded-full bg-bitebase-green-100 flex items-center justify-center">
-                                  <Users className="h-5 w-5 text-bitebase-green-600" />
-                                </div>
-                                <div>
-                                  <h5 className="font-medium">Urban Professionals</h5>
-                                  <p className="text-xs text-muted-foreground">42% of customer base</p>
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                          
-                          <Card className="border-bitebase-green-100">
-                            <CardContent className="p-4">
-                              <div className="flex items-center gap-3">
-                                <div className="h-10 w-10 rounded-full bg-bitebase-green-100 flex items-center justify-center">
-                                  <Users className="h-5 w-5 text-bitebase-green-600" />
-                                </div>
-                                <div>
-                                  <h5 className="font-medium">Food Enthusiasts</h5>
-                                  <p className="text-xs text-muted-foreground">28% of customer base</p>
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        </div>
-                      </div>
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="competitors" className="mt-0">
-                    <div className="space-y-6">
-                      <div className="relative h-64 border border-bitebase-green-200 rounded-md p-4">
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                          <div className="h-12 w-12 rounded-full bg-bitebase-green-500 flex items-center justify-center text-white">
-                            <span className="text-sm font-medium">You</span>
-                          </div>
-                        </div>
-                        
-                        {Array(8).fill(0).map((_, i) => {
-                          const angle = (i / 8) * Math.PI * 2;
-                          const distance = 70 + Math.random() * 30;
-                          const x = Math.cos(angle) * distance;
-                          const y = Math.sin(angle) * distance;
-                          const size = 8 + Math.random() * 6;
-                          
-                          return (
-                            <div 
-                              key={i}
-                              className="absolute h-8 w-8 rounded-full bg-muted border border-border flex items-center justify-center"
-                              style={{ 
-                                top: `calc(50% + ${y}px)`, 
-                                left: `calc(50% + ${x}px)`,
-                                transform: 'translate(-50%, -50%)',
-                                width: `${size}px`,
-                                height: `${size}px`
-                              }}
-                            />
-                          );
-                        })}
-                        
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="h-28 w-28 rounded-full border border-bitebase-green-200 opacity-60" />
-                        </div>
-                        
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="h-48 w-48 rounded-full border border-bitebase-green-200 opacity-40" />
-                        </div>
-                        
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="h-64 w-64 rounded-full border border-bitebase-green-200 opacity-20" />
-                        </div>
-                      </div>
-                      
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <h4 className="text-sm font-medium mb-2">Price Comparison</h4>
-                          <div className="space-y-2">
-                            <div>
-                              <div className="flex justify-between text-sm mb-1">
-                                <span>Your Restaurant</span>
-                                <span className="font-medium">$$$</span>
-                              </div>
-                              <div className="overflow-hidden h-2 text-xs flex rounded bg-bitebase-green-200">
-                                <div style={{ width: "75%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-bitebase-green-500"></div>
-                              </div>
-                            </div>
-                            
-                            <div>
-                              <div className="flex justify-between text-sm mb-1">
-                                <span>Competitor Avg.</span>
-                                <span className="font-medium">$$</span>
-                              </div>
-                              <div className="overflow-hidden h-2 text-xs flex rounded bg-muted">
-                                <div style={{ width: "50%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-gray-400"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <h4 className="text-sm font-medium mb-2">Rating Comparison</h4>
-                          <div className="space-y-2">
-                            <div>
-                              <div className="flex justify-between text-sm mb-1">
-                                <span>Your Restaurant</span>
-                                <span className="font-medium flex items-center">
-                                  4.8 <Star className="h-3 w-3 ml-1 fill-current text-amber-400" />
-                                </span>
-                              </div>
-                              <div className="overflow-hidden h-2 text-xs flex rounded bg-bitebase-green-200">
-                                <div style={{ width: "96%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-bitebase-green-500"></div>
-                              </div>
-                            </div>
-                            
-                            <div>
-                              <div className="flex justify-between text-sm mb-1">
-                                <span>Competitor Avg.</span>
-                                <span className="font-medium flex items-center">
-                                  4.2 <Star className="h-3 w-3 ml-1 fill-current text-amber-400" />
-                                </span>
-                              </div>
-                              <div className="overflow-hidden h-2 text-xs flex rounded bg-muted">
-                                <div style={{ width: "84%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-gray-400"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="trends" className="mt-0">
-                    <div className="space-y-6">
-                      <div>
-                        <h4 className="text-sm font-medium mb-2">Popular Cuisines Trend</h4>
-                        <div className="grid grid-cols-3 gap-4">
-                          <Card className="border-bitebase-green-100">
-                            <CardContent className="p-4">
-                              <div className="flex items-center gap-3">
-                                <div className="h-10 w-10 rounded-full bg-bitebase-green-100 flex items-center justify-center">
-                                  <TrendingUp className="h-5 w-5 text-bitebase-green-600" />
-                                </div>
-                                <div>
-                                  <h5 className="font-medium">Italian</h5>
-                                  <p className="text-xs text-green-600">+12% YoY</p>
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                          
-                          <Card className="border-bitebase-green-100">
-                            <CardContent className="p-4">
-                              <div className="flex items-center gap-3">
-                                <div className="h-10 w-10 rounded-full bg-bitebase-green-100 flex items-center justify-center">
-                                  <TrendingUp className="h-5 w-5 text-bitebase-green-600" />
-                                </div>
-                                <div>
-                                  <h5 className="font-medium">Asian Fusion</h5>
-                                  <p className="text-xs text-green-600">+23% YoY</p>
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                          
-                          <Card className="border-bitebase-green-100">
-                            <CardContent className="p-4">
-                              <div className="flex items-center gap-3">
-                                <div className="h-10 w-10 rounded-full bg-bitebase-green-100 flex items-center justify-center">
-                                  <TrendingUp className="h-5 w-5 text-bitebase-green-600" />
-                                </div>
-                                <div>
-                                  <h5 className="font-medium">Plant-Based</h5>
-                                  <p className="text-xs text-green-600">+18% YoY</p>
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <h4 className="text-sm font-medium mb-2">Consumer Spending Trends</h4>
-                        <div className="h-48 flex items-end space-x-2">
-                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((month) => (
-                            <div key={month} className="flex-1 bg-gradient-to-t from-bitebase-green-500 to-bitebase-green-300 rounded-t-sm" 
-                              style={{ height: `${20 + Math.sin(month) * 20 + 40}%` }}
-                            ></div>
-                          ))}
-                        </div>
-                        <div className="flex justify-between mt-2 text-xs text-muted-foreground">
-                          <span>Jan</span>
-                          <span>Feb</span>
-                          <span>Mar</span>
-                          <span>Apr</span>
-                          <span>May</span>
-                          <span>Jun</span>
-                          <span>Jul</span>
-                          <span>Aug</span>
-                          <span>Sep</span>
-                          <span>Oct</span>
-                          <span>Nov</span>
-                          <span>Dec</span>
-                        </div>
-                      </div>
-                    </div>
-                  </TabsContent>
-                </Tabs>
-              </CardContent>
-            </Card>
-            
-            {/* Location Map Section */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="flex items-center justify-between">
-                  <span>Location Intelligence</span>
-                  <Button variant="outline" size="sm" asChild>
-                    <Link to="/location">
-                      View Full Map <ChevronRight className="ml-1 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </CardTitle>
-                <CardDescription>
-                  Geographic analysis of your restaurant's location
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="relative h-[300px] rounded-md border overflow-hidden bg-neutral-50">
-                  {/* Placeholder for map */}
-                  <div className="absolute inset-0 bg-bitebase-green-50">
-                    <div className="w-full h-full opacity-10" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }}></div>
-                  </div>
-                  
-                  {/* Central marker */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <div className="h-8 w-8 rounded-full bg-bitebase-green-500 flex items-center justify-center text-white shadow-lg">
-                      <MapPin className="h-4 w-4" />
-                    </div>
-                    <div className="absolute -inset-1 rounded-full border-4 border-bitebase-green-500 opacity-20 animate-ping"></div>
-                  </div>
-                  
-                  {/* Map controls */}
-                  <div className="absolute top-2 right-2 flex flex-col gap-1">
-                    <Button size="icon" variant="outline" className="h-8 w-8 bg-background">
-                      <Plus className="h-4 w-4" />
-                    </Button>
-                    <Button size="icon" variant="outline" className="h-8 w-8 bg-background">
-                      <Layers className="h-4 w-4" />
-                    </Button>
-                    <Button size="icon" variant="outline" className="h-8 w-8 bg-background">
-                      <Filter className="h-4 w-4" />
-                    </Button>
-                  </div>
-                  
-                  {/* Map metrics */}
-                  <div className="absolute bottom-2 left-2 right-2 flex gap-2 overflow-x-auto pb-1">
-                    <Card className="flex-shrink-0 bg-background/90 backdrop-blur-sm shadow-md">
-                      <CardContent className="p-3">
-                        <div className="flex items-center justify-between">
-                          <p className="text-sm font-medium">Foot Traffic</p>
-                          <Users className="h-4 w-4 text-bitebase-green-600 ml-2" />
-                        </div>
-                        <p className="text-xl font-bold">1,245</p>
-                        <p className="text-xs text-green-600">+12% vs. avg</p>
-                      </CardContent>
-                    </Card>
-                    
-                    <Card className="flex-shrink-0 bg-background/90 backdrop-blur-sm shadow-md">
-                      <CardContent className="p-3">
-                        <div className="flex items-center justify-between">
-                          <p className="text-sm font-medium">Competition</p>
-                          <Building className="h-4 w-4 text-bitebase-green-600 ml-2" />
-                        </div>
-                        <p className="text-xl font-bold">8</p>
-                        <p className="text-xs text-red-600">-2% vs. avg</p>
-                      </CardContent>
-                    </Card>
-                    
-                    <Card className="flex-shrink-0 bg-background/90 backdrop-blur-sm shadow-md">
-                      <CardContent className="p-3">
-                        <div className="flex items-center justify-between">
-                          <p className="text-sm font-medium">Rent Avg.</p>
-                          <DollarSign className="h-4 w-4 text-bitebase-green-600 ml-2" />
-                        </div>
-                        <p className="text-xl font-bold">$3,250</p>
-                        <p className="text-xs text-green-600">+5% vs. avg</p>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+                        </td>
+                        <td className="p-4 font-medium">{location.name}</td>
+                        <td className="p-4 font-bold text-green-600">{location.score}/100</td>
+                        <td className="p-4 text-sm">{location.competitors} competitors</td>
+                        <td className="p-4">{location.rent}</td>
+                        <td className="p-4">
+                          <Button variant="default" size="sm">Analyze</Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
           
-          {/* Right Column - Sidebar Widgets */}
-          <div className="space-y-6">
-            {/* Recent Locations */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle>Your Restaurants</CardTitle>
-                <CardDescription>
-                  Your active restaurant profiles
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-0">
-                <div className="divide-y">
-                  {restaurants.map(restaurant => (
-                    <div key={restaurant.id} className="p-4 hover:bg-muted/50 transition-colors">
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <h4 className="font-medium">{restaurant.name}</h4>
-                          <div className="flex items-center text-sm text-muted-foreground mt-1">
-                            <MapPin className="h-3 w-3 mr-1" />
-                            <span className="truncate max-w-[200px]">{restaurant.location}</span>
-                          </div>
-                        </div>
-                        <Badge
-                          variant={restaurant.status === 'active' ? 'default' : 'outline'}
-                          className={restaurant.status === 'active' ? 'bg-bitebase-green-500' : ''}
-                        >
-                          {restaurant.status === 'active' ? 'Active' : 'Pending'}
-                        </Badge>
-                      </div>
-                      <div className="mt-3">
-                        <div className="flex justify-between text-sm mb-1">
-                          <span>Location Score</span>
-                          <span className="font-medium">{restaurant.score}/100</span>
-                        </div>
-                        <Progress value={restaurant.score} className="h-1" />
-                      </div>
-                      <div className="flex justify-between items-center mt-3">
-                        <span className="text-xs text-muted-foreground">
-                          Updated {restaurant.lastUpdated}
-                        </span>
-                        <Button variant="ghost" size="sm" asChild>
-                          <Link to={`/restaurants/${restaurant.id}`}>
-                            Details
-                          </Link>
-                        </Button>
+          {/* Quick Analysis */}
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle>Quick Analysis</CardTitle>
+              <CardDescription>
+                Key insights for your business
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {quickAnalysis.map((item, index) => (
+                <div key={index} className="p-4 border border-border rounded-lg hover:border-primary transition-all">
+                  <div className="flex items-start">
+                    <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center mr-3">
+                      {item.icon}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-medium mb-1">{item.title}</h4>
+                      <p className="text-sm text-muted-foreground mb-3">{item.description}</p>
+                      <Progress value={item.score} className="h-1.5" />
+                      <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                        <span>Score: {item.score}/100</span>
+                        <span>{item.level}</span>
                       </div>
                     </div>
-                  ))}
+                  </div>
                 </div>
-              </CardContent>
-              <CardFooter className="border-t p-4">
-                <Button variant="outline" className="w-full" asChild>
-                  <Link to="/restaurant-setup">
-                    <Plus className="mr-2 h-4 w-4" /> Add New Restaurant
-                  </Link>
-                </Button>
-              </CardFooter>
-            </Card>
-            
-            {/* Recent Activity */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle>Recent Activity</CardTitle>
-                <CardDescription>
-                  Your latest interactions and updates
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-0">
-                <div className="divide-y">
-                  {recentActivities.map(activity => (
-                    <div key={activity.id} className="p-4 hover:bg-muted/50 transition-colors">
-                      <div className="flex gap-3">
-                        <div className="h-8 w-8 rounded-full bg-bitebase-green-100 flex items-center justify-center shrink-0">
-                          {activity.icon}
-                        </div>
-                        <div>
-                          <h4 className="font-medium">{activity.name}</h4>
-                          <div className="flex items-center text-xs text-muted-foreground mt-1">
-                            <Clock className="h-3 w-3 mr-1" />
-                            <span>{activity.date}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-              <CardFooter className="border-t p-4">
-                <Button variant="ghost" size="sm" className="w-full">
-                  View All Activity
-                </Button>
-              </CardFooter>
-            </Card>
-            
-            {/* AI Recommendations */}
-            <Card className="bg-gradient-to-br from-bitebase-green-50 to-white border-bitebase-green-200">
-              <CardHeader className="pb-2">
-                <CardTitle className="flex items-center">
-                  <span className="bg-gradient-to-r from-bitebase-green-600 to-bitebase-green-400 bg-clip-text text-transparent">AI Recommendations</span>
-                </CardTitle>
-                <CardDescription>
-                  Smart suggestions based on your data
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <div className="h-6 w-6 rounded-full bg-bitebase-green-100 text-bitebase-green-600 flex items-center justify-center mr-2 mt-0.5">
-                      <BarChart2 className="h-3.5 w-3.5" />
-                    </div>
-                    <p className="text-sm">Consider extended hours on weekends based on foot traffic patterns.</p>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="h-6 w-6 rounded-full bg-bitebase-green-100 text-bitebase-green-600 flex items-center justify-center mr-2 mt-0.5">
-                      <BarChart2 className="h-3.5 w-3.5" />
-                    </div>
-                    <p className="text-sm">Your menu prices are 8% below competitors. Consider a modest price increase.</p>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="h-6 w-6 rounded-full bg-bitebase-green-100 text-bitebase-green-600 flex items-center justify-center mr-2 mt-0.5">
-                      <BarChart2 className="h-3.5 w-3.5" />
-                    </div>
-                    <p className="text-sm">Add more plant-based options to capture growing demographic trend.</p>
-                  </li>
-                </ul>
-              </CardContent>
-              <CardFooter className="border-t border-bitebase-green-100 bg-bitebase-green-50/50 p-4">
-                <Button variant="outline" className="w-full border-bitebase-green-200 hover:border-bitebase-green-300 hover:bg-bitebase-green-100/50">
-                  Generate More Insights
-                </Button>
-              </CardFooter>
-            </Card>
-          </div>
+              ))}
+              <Button variant="outline" className="w-full">
+                Run Full Analysis
+              </Button>
+            </CardContent>
+          </Card>
         </div>
-        
-        {/* Bottom Section - Menu Optimization */}
+
+        {/* Recent Activity */}
         <Card className="mb-6">
           <CardHeader className="pb-2">
-            <CardTitle>Menu Performance</CardTitle>
+            <div className="flex justify-between items-center">
+              <CardTitle>Recent Activity</CardTitle>
+              <Button variant="ghost" size="sm">
+                <Clock className="h-4 w-4 mr-2" /> View All
+              </Button>
+            </div>
             <CardDescription>
-              Analyze your menu item performance and optimize accordingly
+              Your latest interactions and updates
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="md:col-span-2">
-                <h3 className="text-sm font-medium mb-3">Menu Profitability Matrix</h3>
-                <div className="h-64 border rounded-md grid grid-cols-2 grid-rows-2 p-1 bg-muted/20">
-                  <div className="flex flex-col p-4 border-r border-b">
-                    <div className="text-xs font-semibold text-bitebase-green-700 bg-bitebase-green-100 px-2 py-1 rounded-sm self-start mb-2">
-                      STARS
-                    </div>
-                    <div className="flex-1 flex items-center justify-center">
-                      <div className="relative">
-                        <div className="absolute w-12 h-12 rounded-full bg-bitebase-green-500/20 -left-6 -top-6"></div>
-                        <div className="absolute w-10 h-10 rounded-full bg-bitebase-green-500/30 left-4 top-4"></div>
-                        <div className="absolute w-14 h-14 rounded-full bg-bitebase-green-500/20 left-12 -top-2"></div>
-                        <div className="text-center">
-                          <p className="text-xs text-muted-foreground">High Popularity</p>
-                          <p className="text-xs text-muted-foreground">High Profit</p>
-                        </div>
-                      </div>
-                    </div>
+            <div className="space-y-4">
+              {recentActivity.map((activity, index) => (
+                <div key={index} className="flex items-start hover:bg-muted/50 p-3 rounded-lg transition-all">
+                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center mr-3 mt-1">
+                    {activity.icon}
                   </div>
-                  <div className="flex flex-col p-4 border-b">
-                    <div className="text-xs font-semibold text-amber-700 bg-amber-100 px-2 py-1 rounded-sm self-start mb-2">
-                      PUZZLES
+                  <div className="flex-1">
+                    <div className="flex justify-between">
+                      <h4 className="font-medium">{activity.title}</h4>
+                      <span className="text-xs text-muted-foreground">{activity.time}</span>
                     </div>
-                    <div className="flex-1 flex items-center justify-center">
-                      <div className="relative">
-                        <div className="absolute w-8 h-8 rounded-full bg-amber-500/20 -left-4 -top-4"></div>
-                        <div className="absolute w-6 h-6 rounded-full bg-amber-500/30 left-8 top-2"></div>
-                        <div className="text-center">
-                          <p className="text-xs text-muted-foreground">High Popularity</p>
-                          <p className="text-xs text-muted-foreground">Low Profit</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col p-4 border-r">
-                    <div className="text-xs font-semibold text-blue-700 bg-blue-100 px-2 py-1 rounded-sm self-start mb-2">
-                      PLOW HORSES
-                    </div>
-                    <div className="flex-1 flex items-center justify-center">
-                      <div className="relative">
-                        <div className="absolute w-10 h-10 rounded-full bg-blue-500/20 -left-6 -top-2"></div>
-                        <div className="absolute w-8 h-8 rounded-full bg-blue-500/30 left-2 top-3"></div>
-                        <div className="absolute w-7 h-7 rounded-full bg-blue-500/20 left-10 top-0"></div>
-                        <div className="text-center">
-                          <p className="text-xs text-muted-foreground">Low Popularity</p>
-                          <p className="text-xs text-muted-foreground">Low Profit</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col p-4">
-                    <div className="text-xs font-semibold text-purple-700 bg-purple-100 px-2 py-1 rounded-sm self-start mb-2">
-                      DOGS
-                    </div>
-                    <div className="flex-1 flex items-center justify-center">
-                      <div className="relative">
-                        <div className="absolute w-6 h-6 rounded-full bg-purple-500/20 left-3 -top-3"></div>
-                        <div className="absolute w-5 h-5 rounded-full bg-purple-500/30 -left-2 top-2"></div>
-                        <div className="text-center">
-                          <p className="text-xs text-muted-foreground">Low Popularity</p>
-                          <p className="text-xs text-muted-foreground">High Profit</p>
-                        </div>
-                      </div>
-                    </div>
+                    <p className="text-sm text-muted-foreground">{activity.description}</p>
                   </div>
                 </div>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium mb-3">Top Performing Items</h3>
-                <div className="space-y-3">
-                  <Card className="border-bitebase-green-100">
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-full bg-bitebase-green-100 flex items-center justify-center">
-                          <Utensils className="h-5 w-5 text-bitebase-green-600" />
-                        </div>
-                        <div className="flex-1">
-                          <h5 className="font-medium">Gourmet Burger</h5>
-                          <div className="flex justify-between items-center mt-1">
-                            <p className="text-xs text-muted-foreground">Profit: $12.40</p>
-                            <Badge className="bg-bitebase-green-500">Star</Badge>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card className="border-bitebase-green-100">
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-full bg-bitebase-green-100 flex items-center justify-center">
-                          <Coffee className="h-5 w-5 text-bitebase-green-600" />
-                        </div>
-                        <div className="flex-1">
-                          <h5 className="font-medium">Specialty Coffee</h5>
-                          <div className="flex justify-between items-center mt-1">
-                            <p className="text-xs text-muted-foreground">Profit: $3.75</p>
-                            <Badge className="bg-bitebase-green-500">Star</Badge>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card className="border-amber-100">
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-full bg-amber-100 flex items-center justify-center">
-                          <Utensils className="h-5 w-5 text-amber-600" />
-                        </div>
-                        <div className="flex-1">
-                          <h5 className="font-medium">House Salad</h5>
-                          <div className="flex justify-between items-center mt-1">
-                            <p className="text-xs text-muted-foreground">Profit: $4.20</p>
-                            <Badge variant="outline" className="border-amber-200 text-amber-700 bg-amber-50">Puzzle</Badge>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-                
-                <Button className="w-full mt-4" asChild>
-                  <Link to="/menu-analysis">
-                    Full Menu Analysis
-                  </Link>
-                </Button>
-              </div>
+              ))}
             </div>
           </CardContent>
-        </Card>
-        
-        {/* Action Plan */}
-        <Card className="bg-muted/30">
-          <CardHeader className="pb-2">
-            <CardTitle>Action Plan</CardTitle>
-            <CardDescription>
-              Your personalized action items based on market analysis
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="h-10 w-10 rounded-full bg-bitebase-green-100 flex items-center justify-center">
-                      <Users className="h-5 w-5 text-bitebase-green-600" />
-                    </div>
-                    <div>
-                      <h5 className="font-medium">Customer Targeting</h5>
-                      <p className="text-xs text-muted-foreground">High Priority</p>
-                    </div>
-                  </div>
-                  <p className="text-sm">Develop targeted marketing for the 25-34 age demographic that shows high interest in your restaurant concept.</p>
-                  <Button variant="outline" className="w-full mt-4">View Demographic Data</Button>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="h-10 w-10 rounded-full bg-bitebase-green-100 flex items-center justify-center">
-                      <Coffee className="h-5 w-5 text-bitebase-green-600" />
-                    </div>
-                    <div>
-                      <h5 className="font-medium">Menu Optimization</h5>
-                      <p className="text-xs text-muted-foreground">Medium Priority</p>
-                    </div>
-                  </div>
-                  <p className="text-sm">Consider reformulating your salad offerings to improve profit margins while maintaining popularity.</p>
-                  <Button variant="outline" className="w-full mt-4">Menu Analysis</Button>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="h-10 w-10 rounded-full bg-bitebase-green-100 flex items-center justify-center">
-                      <Building className="h-5 w-5 text-bitebase-green-600" />
-                    </div>
-                    <div>
-                      <h5 className="font-medium">Competition Strategy</h5>
-                      <p className="text-xs text-muted-foreground">High Priority</p>
-                    </div>
-                  </div>
-                  <p className="text-sm">Develop a strategy to differentiate from the 3 direct competitors within 0.5 miles of your location.</p>
-                  <Button variant="outline" className="w-full mt-4">Competitor Analysis</Button>
-                </CardContent>
-              </Card>
-            </div>
-          </CardContent>
-          <CardFooter className="border-t p-4">
-            <Button variant="outline" className="w-full">
-              Generate Full Action Plan Report
-            </Button>
-          </CardFooter>
         </Card>
       </div>
+
+      {/* AI Assistant Button */}
+      <div className="fixed bottom-6 right-6">
+        <Button 
+          size="icon" 
+          className="h-14 w-14 rounded-full shadow-lg animate-pulse-slow"
+          onClick={() => setShowAiAssistant(!showAiAssistant)}
+        >
+          <User className="h-6 w-6" />
+        </Button>
+      </div>
+
+      {/* AI Assistant Panel */}
+      {showAiAssistant && (
+        <div className="fixed bottom-24 right-6 w-80 bg-white rounded-xl shadow-xl z-50 border border-border overflow-hidden">
+          <div className="p-4 bg-primary text-white flex justify-between items-center">
+            <h3 className="font-bold">BiteBase AI Assistant</h3>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="text-white hover:text-white hover:bg-primary-foreground/20 h-8 w-8 p-0"
+              onClick={() => setShowAiAssistant(false)}
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="p-4 max-h-96 overflow-y-auto">
+            <div className="mb-4">
+              <div className="flex items-start">
+                <Avatar className="h-8 w-8 mr-2">
+                  <AvatarFallback className="bg-yellow-500">AI</AvatarFallback>
+                </Avatar>
+                <div className="bg-muted p-3 rounded-lg max-w-xs">
+                  <p className="text-sm">Hello! I'm your BiteBase AI Assistant. How can I help you with your restaurant analytics today?</p>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Button variant="outline" className="w-full justify-start text-sm h-auto py-2" size="sm">
+                Show me top location recommendations
+              </Button>
+              <Button variant="outline" className="w-full justify-start text-sm h-auto py-2" size="sm">
+                Analyze competitor pricing
+              </Button>
+              <Button variant="outline" className="w-full justify-start text-sm h-auto py-2" size="sm">
+                What are the current food trends?
+              </Button>
+            </div>
+          </div>
+          <div className="p-4 border-t border-border">
+            <div className="flex items-center">
+              <input 
+                type="text" 
+                placeholder="Ask me anything..." 
+                className="flex-1 px-3 py-2 border border-input rounded-l-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              />
+              <Button className="rounded-l-none">
+                <ArrowUp className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </Layout>
   );
 };

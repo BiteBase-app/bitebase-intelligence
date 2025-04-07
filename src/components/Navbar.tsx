@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { BarChart2, Search, MapPin, Users, UserPlus, X, Menu } from "lucide-react";
+import { BarChart2, Search, MapPin, Users, UserPlus, Menu as MenuIcon, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -55,7 +55,7 @@ export function Navbar() {
               {isMenuOpen ? (
                 <X className="h-6 w-6" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <MenuIcon className="h-6 w-6" />
               )}
             </Button>
           </div>
