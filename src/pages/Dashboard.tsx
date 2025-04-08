@@ -1,4 +1,3 @@
-import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -53,6 +52,7 @@ import {
 } from "@/components/ui/popover";
 import { TierRestriction } from "@/components/TierRestriction";
 import { useTier } from "@/contexts/TierContext";
+import { DashboardLayout } from "@/components/DashboardLayout";
 
 const Dashboard = () => {
   const { toast } = useToast();
@@ -215,8 +215,8 @@ const Dashboard = () => {
   };
 
   return (
-    <Layout>
-      <div className="container py-6">
+    <DashboardLayout>
+      <div className="py-6">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
           <div>
             <div className="flex items-center gap-2">
@@ -629,7 +629,7 @@ const Dashboard = () => {
           </div>
         </div>
       )}
-    </Layout>
+    </DashboardLayout>
   );
 };
 

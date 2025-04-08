@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Layout } from "@/components/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -23,7 +22,6 @@ import {
 } from "recharts";
 import { Search, Filter, MapPin, Info, ExternalLink, SlidersHorizontal, Download, RefreshCw, Plus } from "lucide-react";
 import { TierRestriction } from "@/components/TierRestriction";
-import { TestUserToggle } from "@/components/TestUserToggle";
 
 const CompetitiveAnalysis = () => {
   // Sample data for the charts
@@ -161,7 +159,7 @@ const CompetitiveAnalysis = () => {
       <div className="container py-10">
         {/* Test User Toggle */}
         <div className="mb-6">
-          <TestUserToggle />
+          {/* TestUserToggle */}
         </div>
         
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
