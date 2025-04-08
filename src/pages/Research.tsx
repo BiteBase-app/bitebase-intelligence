@@ -1,4 +1,5 @@
-import { Layout } from "@/components/Layout";
+
+import { DashboardLayout } from "@/components/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -35,7 +36,7 @@ const ResearchProjects = () => {
   ];
 
   return (
-    <Layout>
+    <DashboardLayout>
       <div className="container py-10">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
           <div>
@@ -148,7 +149,7 @@ const ResearchProjects = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </Layout>
+    </DashboardLayout>
   );
 };
 

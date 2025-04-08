@@ -1,6 +1,6 @@
 
 import { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
@@ -13,6 +13,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -27,7 +28,9 @@ import {
   LogOut,
   Home,
   UserPlus,
-  PanelLeft,
+  FileBarChart,
+  Database,
+  FileText,
 } from "lucide-react";
 import { useTier } from "@/contexts/TierContext";
 
@@ -37,13 +40,16 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const { currentTier } = useTier();
+  const location = useLocation();
   
   const mainNavItems = [
     { name: "Dashboard", href: "/dashboard", icon: BarChart2 },
     { name: "Market Research", href: "/research", icon: Search },
     { name: "Location Analysis", href: "/location", icon: MapPin },
-    { name: "Competitive Analysis", href: "/competitive-analysis", icon: UserPlus },
-    { name: "Consumer Insights", href: "/insights", icon: Users },
+    { name: "Market Intelligence", href: "/competitive-analysis", icon: UserPlus },
+    { name: "Team Management", href: "/team-management", icon: Users },
+    { name: "Reports", href: "/reports", icon: FileText },
+    { name: "Data Integration", href: "/data-integration", icon: Database },
   ];
 
   return (
@@ -66,7 +72,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                 <SidebarMenu>
                   {mainNavItems.map((item) => (
                     <SidebarMenuItem key={item.name}>
-                      <SidebarMenuButton asChild tooltip={item.name}>
+                      <SidebarMenuButton 
+                        asChild 
+                        tooltip={item.name}
+                        isActive={location.pathname === item.href}
+                      >
                         <Link to={item.href}>
                           <item.icon />
                           <span>{item.name}</span>
@@ -125,9 +135,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         
         <div className="flex flex-1 flex-col overflow-hidden">
           <div className="flex h-14 items-center border-b border-border px-4">
-            <Button variant="ghost" size="icon" className="mr-2">
-              <PanelLeft className="h-5 w-5" />
-            </Button>
+            <SidebarTrigger className="mr-2" />
             <div className="flex-1" />
             <Button size="sm" variant="outline" className="mr-2">
               Upgrade Plan

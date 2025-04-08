@@ -9,13 +9,14 @@ import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Research from "./pages/Research";
 import Location from "./pages/Location";
-import Insights from "./pages/Insights";
-import Merge from "./pages/Merge";
+import CompetitiveAnalysis from "./pages/CompetitiveAnalysis";
 import NotFound from "./pages/NotFound";
 import Onboarding from "./pages/Onboarding";
 import RestaurantSetup from "./pages/RestaurantSetup";
 import Integrations from "./pages/Integrations";
-import CompetitiveAnalysis from "./pages/CompetitiveAnalysis";
+import TeamManagement from "./pages/TeamManagement";
+import Reports from "./pages/Reports";
+import DataIntegration from "./pages/DataIntegration";
 
 const queryClient = new QueryClient();
 
@@ -31,12 +32,13 @@ const App = () => (
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/research" element={<Research />} />
             <Route path="/location" element={<Location />} />
-            <Route path="/insights" element={<Insights />} />
-            <Route path="/merge" element={<Merge />} />
+            <Route path="/competitive-analysis" element={<CompetitiveAnalysis />} />
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/restaurant-setup" element={<RestaurantSetup />} />
             <Route path="/integrations" element={<Integrations />} />
-            <Route path="/competitive-analysis" element={<CompetitiveAnalysis />} />
+            <Route path="/team-management" element={<TeamManagement />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/data-integration" element={<DataIntegration />} />
             <Route path="/payment-success" element={<Dashboard />} />
             <Route path="/payment-canceled" element={<Dashboard />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

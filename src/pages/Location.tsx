@@ -1,4 +1,4 @@
-import { Layout } from "@/components/Layout";
+import { DashboardLayout } from "@/components/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { GradientHeading } from "@/components/ui/gradient-heading";
@@ -36,7 +36,7 @@ const Location = () => {
       icon: <Home className="h-4 w-4" />,
       description: "Residents within 1 mile",
       score: 68,
-      tier: "pro"
+      tier: "pro" as "pro"
     },
     {
       name: "Business District",
@@ -44,7 +44,7 @@ const Location = () => {
       icon: <Briefcase className="h-4 w-4" />,
       description: "Office workers within 0.5 miles",
       score: 85,
-      tier: "pro"
+      tier: "pro" as "pro"
     },
     {
       name: "Competitor Analysis",
@@ -52,12 +52,12 @@ const Location = () => {
       icon: <Building className="h-4 w-4" />,
       description: "Full competitive landscape",
       score: 92,
-      tier: "enterprise"
+      tier: "enterprise" as "enterprise"
     }
   ];
 
   return (
-    <Layout>
+    <DashboardLayout>
       <div className="container py-10">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
           <div>
@@ -74,7 +74,7 @@ const Location = () => {
           </div>
         </div>
         
-        <Tabs defaultValue="map" className="mt-6">
+        <Tabs defaultValue="map" className="mt-8">
           <TabsList className="mb-4">
             <TabsTrigger value="map">Interactive Map</TabsTrigger>
             <TabsTrigger value="analysis">Competitive Analysis</TabsTrigger>
@@ -440,11 +440,11 @@ const Location = () => {
             </Card>
           </TabsContent>
           
-          <TabsContent value="features" className="mt-0">
-            <div className="text-center mb-8">
-              <GradientHeading as="h2" className="mb-4">Location Intelligence Features</GradientHeading>
-              <p className="text-muted-foreground max-w-3xl mx-auto">
-                Explore powerful location analysis tools to help you make data-driven decisions about your restaurant locations
+          <TabsContent value="features" className="mt-6">
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold mb-2">Location Features Analysis</h2>
+              <p className="text-muted-foreground">
+                Explore detailed metrics about this location and its suitability for your restaurant concept.
               </p>
             </div>
             
@@ -452,7 +452,7 @@ const Location = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </Layout>
+    </DashboardLayout>
   );
 };
 
