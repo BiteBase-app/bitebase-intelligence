@@ -183,7 +183,7 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Imported Components */}
+      {/* Imported Components with proper IDs */}
       <div id="how-it-works">
         <BenefitsSection />
       </div>
