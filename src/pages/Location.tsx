@@ -1,14 +1,61 @@
-
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { GradientHeading } from "@/components/ui/gradient-heading";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowRight, Building, Target, TrendingUp, Users } from "lucide-react";
+import { ArrowRight, Building, Target, TrendingUp, Users, MapPin, DollarSign, Clock, Car, ShoppingBag, Utensils, Home, Briefcase, School, Bus } from "lucide-react";
 import LocationMap from "@/components/LocationMap";
 import LocationFeatures from "@/components/LocationFeatures";
 
 const Location = () => {
+  const locationFeatures = [
+    {
+      name: "Foot Traffic",
+      value: "18.2K",
+      icon: <Users className="h-4 w-4" />,
+      description: "Weekly average pedestrians",
+      score: 82,
+    },
+    {
+      name: "Parking Availability",
+      value: "High",
+      icon: <Car className="h-4 w-4" />,
+      description: "Public parking within 500ft",
+      score: 90,
+    },
+    {
+      name: "Public Transportation",
+      value: "3 Lines",
+      icon: <Bus className="h-4 w-4" />,
+      description: "Bus and subway access",
+      score: 75,
+    },
+    {
+      name: "Residential Density",
+      value: "12,400",
+      icon: <Home className="h-4 w-4" />,
+      description: "Residents within 1 mile",
+      score: 68,
+      tier: "pro"
+    },
+    {
+      name: "Business District",
+      value: "4,200",
+      icon: <Briefcase className="h-4 w-4" />,
+      description: "Office workers within 0.5 miles",
+      score: 85,
+      tier: "pro"
+    },
+    {
+      name: "Competitor Analysis",
+      value: "Detailed",
+      icon: <Building className="h-4 w-4" />,
+      description: "Full competitive landscape",
+      score: 92,
+      tier: "enterprise"
+    }
+  ];
+
   return (
     <Layout>
       <div className="container py-10">
@@ -401,7 +448,7 @@ const Location = () => {
               </p>
             </div>
             
-            <LocationFeatures />
+            <LocationFeatures features={locationFeatures} showScores={true} />
           </TabsContent>
         </Tabs>
       </div>
