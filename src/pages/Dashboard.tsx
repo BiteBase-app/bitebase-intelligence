@@ -51,7 +51,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { TestUserToggle } from "@/components/TestUserToggle";
 import { TierRestriction } from "@/components/TierRestriction";
 import { useTier } from "@/contexts/TierContext";
 
@@ -222,7 +221,6 @@ const Dashboard = () => {
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-3xl font-bold">Restaurant Intelligence Dashboard</h1>
-              <TestUserToggle />
             </div>
             <p className="text-muted-foreground mt-1">Welcome back to your restaurant intelligence platform</p>
           </div>

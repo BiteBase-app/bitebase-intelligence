@@ -1,7 +1,6 @@
 
 import React, { ReactNode } from "react";
 import { TierLevel, useTier } from "@/contexts/TierContext";
-import { useTestUser } from "@/contexts/TestUserContext"; 
 import { AlertTriangle } from "lucide-react";
 
 interface TierRestrictionProps {
@@ -18,12 +17,6 @@ export function TierRestriction({
   isMultiLocationFeature 
 }: TierRestrictionProps) {
   const { isTierAllowed, currentTier, canAddMultipleLocations } = useTier();
-  const { isTestUser } = useTestUser();
-  
-  // If test user mode is enabled, show all features regardless of tier
-  if (isTestUser) {
-    return <>{children}</>;
-  }
   
   // Check both tier level and multi-location restriction if applicable
   if ((isMultiLocationFeature && !canAddMultipleLocations()) || 
