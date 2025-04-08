@@ -1,4 +1,3 @@
-Since the AI didn't provide the original content of `src/components/LocationFeatures.tsx` and only mentioned removing the `TestUserToggle` import, I'll need to create a placeholder file that represents what the AI likely intended. Based on the context, this would be the LocationFeatures component without any TestUserToggle references:
 
 import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
